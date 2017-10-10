@@ -1,6 +1,18 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
+import {
+  Card,
+  CardActions,
+  CardHeader,
+  CardMedia,
+  CardTitle,
+  CardText,
+} from 'material-ui/Card';
+import Chip from 'material-ui/Chip';
+import Divider from 'material-ui/Divider';
+import FlatButton from 'material-ui/FlatButton';
+
 import api from '../utils/api';
 
 class Home extends Component {
@@ -96,16 +108,28 @@ class Home extends Component {
         <ul>
           {this.state.posts.map(post => (
             <li key={post.id}>
-              <Link
-                to={`/posts/${post.id}`}
-              >
-                <div>title: {post.title}</div>
-                <div>timestamp: {post.timestamp}</div>
-                <div>author: {post.author}</div>
-                <div>category: {post.category}</div>
-                <div>body: {post.body}</div>
-                <div>voteScore: {post.voteScore}</div>
-              </Link>
+              <Card style={{ marginBottom: 15 }}>
+                <CardHeader
+                  title={post.voteScore}
+                />
+                <Divider />
+                <Link
+                  to={`/posts/${post.id}`}
+                >
+                  <CardTitle title={post.title} subtitle={`${post.author}`} />
+                </Link>
+                <CardText>
+                  {post.body}
+                  <div style={{ display: 'flex' }}>
+                    <Chip>
+                      {post.category}
+                    </Chip>
+                    <Chip backgroundColor='rgba(255, 255, 255, 1)'>
+                      {post.timestamp}
+                    </Chip>
+                  </div>
+                </CardText>
+              </Card>
             </li>
           ))}
         </ul>
