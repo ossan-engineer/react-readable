@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-import { Route, Link } from 'react-router-dom';
+import { Link } from 'react-router-dom';
+import PropTypes from 'prop-types';
 import api from '../utils/api';
 
 class Home extends Component {
@@ -9,7 +10,7 @@ class Home extends Component {
     this.state = {
       categories: [],
       posts: [],
-    }
+    };
   }
 
   componentDidMount() {
@@ -17,7 +18,7 @@ class Home extends Component {
       console.log(res.data);
       this.setState({
         categories: res.data.categories,
-      })
+      });
     });
 
     api.get('posts').then((res) => {
@@ -30,19 +31,31 @@ class Home extends Component {
   }
 
   render() {
-    const { match } = this.props;
+    const { counter, increment, doubleAsync, match } = this.props;
 
     console.log(match);
 
     return (
       <div>
         <h2>Home</h2>
+        <div>
+          <h2>Home: {counter}</h2>
+          <button className='btn btn-primary' onClick={increment}>
+            Increment
+          </button>
+          {' '}
+          <button className='btn btn-secondary' onClick={doubleAsync}>
+            Double (Async)
+          </button>
+        </div>
         <ul>
-          <li onClick={() => {
-            this.setState({
-              editing: true
-            });
-          }}>
+          <li
+            onClick={() => {
+              this.setState({
+                editing: true,
+              });
+            }}
+          >
             Create New Post
           </li>
         </ul>
@@ -62,7 +75,8 @@ class Home extends Component {
                 this.setState({
                   editing: false,
                 });
-              }}>Cancel</button>
+              }}
+              >Cancel</button>
             </form>
           </div>
         ) : null}
@@ -96,8 +110,15 @@ class Home extends Component {
           ))}
         </ul>
       </div>
-    )
+    );
   }
 }
+
+Home.propTypes = {
+  counter: PropTypes.number.isRequired,
+  increment: PropTypes.func.isRequired,
+  doubleAsync: PropTypes.func.isRequired,
+  match: PropTypes.object.isRequired, // TODO: Use shape
+};
 
 export default Home;

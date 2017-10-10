@@ -1,35 +1,28 @@
 import React from 'react';
-import { BrowserRouter, Route, Link } from 'react-router-dom';
-import HomeContainer from './Home/containers/HomeContainer';
-import Login, { fakeAuth } from './Login/components/Login';
-import Connect from './Connect/components/Connect';
+import {
+  BrowserRouter,
+  Route,
+  Switch,
+  Link,
+} from 'react-router-dom';
+import HomeContainer from '../containers/HomeContainer';
+import Categories from '../components/Categories';
+import Detail from '../components/PostDetail';
 
 const Routes = () => (
   <BrowserRouter>
-    <div style={{ textAlign: 'center' }}>
-      <Link to='/'>
-        <h1>React Readable</h1>
-      </Link>
-      <ul className='nav'>
-        <li>
-          <Link to='/login'>Login</Link>
-        </li>
-        <li>
-          <a href='#' onClick={(e) => {
-            e.preventDefault();
-            fakeAuth.deauthenticate();
-            window.location.href = '/';
-          }}
-          >Logout</a>
-        </li>
-        <li>
-          <Link to='/connect'>hoge</Link>
-        </li>
-      </ul>
-      <hr />
-      <Route exact path='/' component={HomeContainer} />
-      <Route path='/login' component={Login} />
-      <Route path='/connect' component={Connect} />
+    <div>
+      <h1>
+        <Link to='/'>
+          React Readable
+        </Link>
+      </h1>
+      <Switch>
+        <Route exact path='/' component={HomeContainer} />
+        <Route path='/posts/:id' component={Detail} />
+        <Route path='/posts/:id/edit' component={Detail} />
+        <Route path='/:category' component={Categories} />
+      </Switch>
     </div>
   </BrowserRouter>
 );

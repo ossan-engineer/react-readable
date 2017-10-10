@@ -1,24 +1,23 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
-import axios from 'axios';
 import api from '../utils/api';
 
-class Category extends Component {
+class Categories extends Component {
   constructor(props) {
     super(props);
 
     this.state = {
       categories: [],
       posts: [],
-    }
+    };
   }
 
   componentDidMount() {
-    api.get(`categories`).then((res) => {
+    api.get('categories').then((res) => {
       console.log(res.data);
       this.setState({
         categories: res.data.categories,
-      })
+      });
     });
 
     this.updatePost(this.props.match.params.category);
@@ -80,4 +79,4 @@ class Category extends Component {
   }
 }
 
-export default Category;
+export default Categories;
