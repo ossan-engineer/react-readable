@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, NavLink, withRouter } from 'react-router-dom';
+import { Field, reduxForm } from 'redux-form';
 import PropTypes from 'prop-types';
+import { Tabs, Tab } from 'material-ui/Tabs';
 import {
   Card,
   CardActions,
@@ -12,8 +14,8 @@ import {
 import Chip from 'material-ui/Chip';
 import Divider from 'material-ui/Divider';
 import FlatButton from 'material-ui/FlatButton';
-
 import api from '../utils/api';
+import CreatePost from './CreatePost';
 
 class Home extends Component {
   constructor(props) {
@@ -42,10 +44,23 @@ class Home extends Component {
     });
   }
 
+  handleActive = (tab) => {
+    // alert(`A tab with this route property ${tab.props['data-route']} was activated.`);
+    this.props.history.push(tab.props.value);
+    // this.updatePost(tab.props.value);
+  }
+
+  handleCancel = () => {
+    this.setState({
+      editing: false,
+    });
+  }
+
   render() {
-    const { counter, increment, doubleAsync, match } = this.props;
+    const { counter, increment, doubleAsync, match, handleSubmit } = this.props;
 
     console.log(match);
+    console.log(handleSubmit);
 
     return (
       <div>
@@ -74,22 +89,7 @@ class Home extends Component {
 
         {this.state.editing ? (
           <div>
-            <form>
-              <input type='text' placeholder='Title' name='title' />
-              <select name='cateogry'>
-                {this.state.categories.map(category => (
-                  <option value={category.name}>{category.name}</option>
-                ))}
-              </select>
-              <textarea name='body' />
-              <input type='submit' value='Submit' />
-              <button onClick={() => {
-                this.setState({
-                  editing: false,
-                });
-              }}
-              >Cancel</button>
-            </form>
+            <CreatePost categories={this.state.categories} onCancel={this.handleCancel} />
           </div>
         ) : null}
 
@@ -97,12 +97,23 @@ class Home extends Component {
         <ul>
           {this.state.categories.map(category => (
             <li key={category.name}>
-              <Link to={`/${category.path}`}>
+              <NavLink to={`/${category.path}`}>
                 {category.name}
-              </Link>
+              </NavLink>
             </li>
           ))}
         </ul>
+
+        <Tabs value={match.params.category}>
+          {this.state.categories.map(category => (
+            <Tab
+              label={category.name}
+              key={category.name}
+              onActive={this.handleActive}
+              value={category.name}
+            />
+          ))}
+        </Tabs>
 
         <h2>Posts</h2>
         <ul>
@@ -145,4 +156,14 @@ Home.propTypes = {
   match: PropTypes.object.isRequired, // TODO: Use shape
 };
 
-export default Home;
+export default withRouter(Home);
+
+// export default reduxForm({
+//   form: 'create',
+//   // validate,
+// })(withRouter(Home));
+
+// export default reduxForm({
+//   form: 'Order',
+//   validate,
+// })(withStyles(styleSheet)(Order));

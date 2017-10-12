@@ -3,10 +3,12 @@ import thunk from 'redux-thunk';
 import logger from 'redux-logger';
 import { persistStore, autoRehydrate } from 'redux-persist';
 import { asyncSessionStorage } from 'redux-persist/storages';
+import { reducer as formReducer } from 'redux-form';
 import counterReducer from '../modules/counter';
 
 const reducer = combineReducers({
   counter: counterReducer,
+  form: formReducer,
 });
 
 const store = createStore(
