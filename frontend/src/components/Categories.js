@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, NavLink, withRouter } from 'react-router-dom';
+import { Tabs, Tab } from 'material-ui/Tabs';
 import api from '../utils/api';
 
 class Categories extends Component {
@@ -38,6 +39,12 @@ class Categories extends Component {
     });
   };
 
+  handleActive = (tab) => {
+    // alert(`A tab with this route property ${tab.props['data-route']} was activated.`);
+    this.props.history.push(tab.props.value);
+    this.updatePost(tab.props.value);
+  }
+
   render() {
     const { match } = this.props;
 
@@ -46,18 +53,16 @@ class Categories extends Component {
     return (
       <div>
         <h2>{match.params.category}</h2>
-        <ul>
+        <Tabs value={match.params.category}>
           {this.state.categories.map(category => (
-            <li key={category.name}>
-              <Link
-                to={`/${category.path}`}
-                onClick={() => this.updatePost(category.path)}
-              >
-                {category.name}
-              </Link>
-            </li>
+            <Tab
+              label={category.name}
+              key={category.name}
+              onActive={this.handleActive}
+              value={category.name}
+            />
           ))}
-        </ul>
+        </Tabs>
 
         <h2>Posts</h2>
         <ul>
@@ -79,4 +84,4 @@ class Categories extends Component {
   }
 }
 
-export default Categories;
+export default withRouter(Categories);
