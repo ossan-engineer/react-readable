@@ -1,8 +1,11 @@
 import React from 'react';
 import { Field, reduxForm } from 'redux-form';
 
-const CreatePost = ({ handleSubmit, categories, onCancel }) => (
-  <form onSubmit={handleSubmit(values => console.log(values))}>
+const CreatePost = ({ handleSubmit, categories, onCancel, createPostAsync }) => (
+  <form onSubmit={handleSubmit(values => {
+    console.log(values);
+    createPostAsync();
+  })}>
     <Field name='title' component='input' type='text' />
     <Field name='category' component='select'>
       {categories.map(category => (

@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { Link, NavLink, withRouter } from 'react-router-dom';
-import { Field, reduxForm } from 'redux-form';
 import PropTypes from 'prop-types';
 import { Tabs, Tab } from 'material-ui/Tabs';
 import {
@@ -13,9 +12,8 @@ import {
 } from 'material-ui/Card';
 import Chip from 'material-ui/Chip';
 import Divider from 'material-ui/Divider';
-import FlatButton from 'material-ui/FlatButton';
 import api from '../utils/api';
-import CreatePost from './CreatePost';
+import CreatePostContainer from '../containers/CreatePostContainer';
 
 class Home extends Component {
   constructor(props) {
@@ -89,7 +87,7 @@ class Home extends Component {
 
         {this.state.editing ? (
           <div>
-            <CreatePost categories={this.state.categories} onCancel={this.handleCancel} />
+            <CreatePostContainer categories={this.state.categories} onCancel={this.handleCancel} />
           </div>
         ) : null}
 
