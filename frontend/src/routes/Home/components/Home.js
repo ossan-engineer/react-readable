@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Link, NavLink, withRouter } from 'react-router-dom';
 import PropTypes from 'prop-types';
+import FlatButton from 'material-ui/FlatButton';
 import { Tabs, Tab } from 'material-ui/Tabs';
 import {
   Card,
@@ -81,7 +82,7 @@ class Home extends Component {
         >
           {this.state.categories.map(category => (
             <Tab
-              label={<span style={{ color: '#0275d8' }}>{category.name}</span>}
+              label={<span style={{ color: 'rgba(0, 0, 0, 0.87)' }}>{category.name}</span>}
               key={category.name}
               onActive={this.handleActive}
               value={category.name}
@@ -89,17 +90,19 @@ class Home extends Component {
           ))}
         </Tabs>
 
-        <div style={{ display: 'flex' }}>
-          <button
-            onClick={() => {
-              this.setState({
-                editing: true,
-              });
-            }}
-          >
-            Create New Post
-          </button>
-
+        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+          {!this.state.editing ? (
+            <FlatButton
+              label='Create New Post'
+              onClick={() => {
+                this.setState({
+                  editing: true,
+                });
+              }}
+            />
+          ) : (
+            <div />
+          )}
           <SelectField
             floatingLabelText='Sort By'
             value={this.state.order}

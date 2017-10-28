@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import IconButton from 'material-ui/IconButton';
 import KeyboardArrowUp from 'material-ui/svg-icons/hardware/keyboard-arrow-up';
 import KeyboardArrowDown from 'material-ui/svg-icons/hardware/keyboard-arrow-down';
+import moment from 'moment';
 import './Comment.css';
 
 class Comment extends Component {
@@ -24,7 +25,7 @@ class Comment extends Component {
                 parentId: {parentId}
               </div>
               <div>
-                timestamp: <input type='text' name='timestamp' value={timestamp} />
+                timestamp: <input type='text' name='timestamp' value={moment(timestamp).format('YYYY/MM/DD HH:mm:ss')} />
               </div>
               <div>
                 author: <input type='text' name='author' value={author} />
@@ -55,7 +56,7 @@ class Comment extends Component {
               parentId: {parentId}
             </div>
             <div>
-              timestamp: {timestamp}
+              timestamp: {moment(timestamp).format('YYYY/MM/DD HH:mm:ss')}
             </div>
             <div>
               author: {author}

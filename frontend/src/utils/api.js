@@ -9,10 +9,15 @@ const apiClient = axios.create({
   },
 });
 
-const get = path => apiClient.get(path);
+const get = url => apiClient.get(url);
+
+const post = (url, data) => apiClient.post(url, data)
+  .then(res => console.log(res))
+  .catch(err => console.log(err));
 
 const api = {
   get,
+  post,
 };
 
 

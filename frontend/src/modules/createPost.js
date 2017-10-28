@@ -1,12 +1,20 @@
+import uuidv4 from 'uuid/v4'
+import api from '../utils/api';
+
 // Constants
 export const CREATE_POST_REQUEST = 'CREATE_POST_REQUEST';
 export const CREATE_POST_SUCCESS = 'CREATE_POST_SUCCESS';
 export const CREATE_POST_FAILURE = 'CREATE_POST_FAILURE';
 
 // Actions
-export const createPostAsync = () => (dispatch) => {
-  console.log('CREATE_POST_ASYNC');
+export const createPostAsync = values => (dispatch) => {
+  const newValues = Object.assign({}, values, {
+    id: uuidv4(),
+    timestamp: Date.now(),
+  });
   dispatch({ type: CREATE_POST_REQUEST });
+
+  return api.post('posts', newValues);
 };
 
 // Action Handles

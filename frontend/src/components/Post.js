@@ -14,6 +14,7 @@ import Divider from 'material-ui/Divider';
 import IconButton from 'material-ui/IconButton';
 import KeyboardArrowUp from 'material-ui/svg-icons/hardware/keyboard-arrow-up';
 import KeyboardArrowDown from 'material-ui/svg-icons/hardware/keyboard-arrow-down';
+import moment from 'moment';
 import api from '../utils/api';
 
 class Post extends Component {
@@ -62,19 +63,17 @@ class Post extends Component {
         </Link>
         <CardText>
           {post.body}
-          <div style={{display: 'flex'}}>
+          <div style={{display: 'flex', marginTop: 30}}>
             <Chip>
               {post.category}
             </Chip>
             <Chip backgroundColor='rgba(255, 255, 255, 1)'>
-              {post.timestamp}
+              {moment(post.timestamp).format('YYYY/MM/DD HH:mm:ss')}
+            </Chip>
+            <Chip backgroundColor='rgba(255, 255, 255, 1)'>
+              {this.state.comments.length} Comments
             </Chip>
           </div>
-          <Link
-            to={`/posts/${post.id}`}
-          >
-            {this.state.comments.length} Comments
-          </Link>
         </CardText>
       </Card>
     );

@@ -14,6 +14,7 @@ import Chip from 'material-ui/Chip';
 import Divider from 'material-ui/Divider';
 import KeyboardArrowUp from 'material-ui/svg-icons/hardware/keyboard-arrow-up';
 import KeyboardArrowDown from 'material-ui/svg-icons/hardware/keyboard-arrow-down';
+import moment from 'moment';
 import Comment from './Comment';
 import api from '../utils/api';
 
@@ -25,9 +26,7 @@ class PostDetail extends Component {
       post: {
         editing: false,
       },
-      newComment: {
-        editing: false,
-      },
+      newComment: {},
       comments: [],
     };
 
@@ -116,63 +115,34 @@ class PostDetail extends Component {
 
             <CardText>
               {post.body}
-              <div style={{display: 'flex'}}>
+              <div style={{display: 'flex', marginTop: 30}}>
                 <Chip>
                   {post.category}
                 </Chip>
                 <Chip backgroundColor='rgba(255, 255, 255, 1)'>
-                  {post.timestamp}
+                  {moment(post.timestamp).format('YYYY/MM/DD HH:mm:ss')}
+                </Chip>
+                <Chip backgroundColor='rgba(255, 255, 255, 1)'>
+                  {this.state.comments.length} Comments
                 </Chip>
               </div>
-              <Link
-                to={`/posts/${post.id}`}
-              >
-                {this.state.comments.length} Comments
-              </Link>
-
-              <div>title: {this.state.post.title}</div>
-              <div>timestamp: {this.state.post.timestamp}</div>
-              <div>author: {this.state.post.author}</div>
-              <div>category: {this.state.post.category}</div>
-              <div>body: {this.state.post.body}</div>
-              <div>voteScore: {this.state.post.voteScore}</div>
-
-              <form>
-                <input type='text' name='comment' placeholder='Your Comment' />
-                <input type='submit' value='Submit' />
-              </form>
             </CardText>
           </Card>
         )}
 
-        {this.state.newComment.editing ? (
-          <div>
-            <form>
-              <input type='submit' value='Save' />
-              <button onClick={() => {
-                this.setState({
-                  newComment: {
-                    editing: false,
-                  }
-                });
-              }}>Cancel</button>
-              <input type='text' name='body' value={this.state.newComment.body} />
-              <input type='text' name='author' value={this.state.newComment.author} />
-              <input type='text' name='voteScore' value={this.state.newComment.voteScore} />
-            </form>
-          </div>
-        ) : (
+        <form>
+          <input type='submit' value='Save' />
           <button onClick={() => {
             this.setState({
               newComment: {
-                editing: true,
-              },
+                editing: false,
+              }
             });
-          }}
-          >
-            Add Comment
-          </button>
-        )}
+          }}>Cancel</button>
+          <input type='text' name='body' value={this.state.newComment.body} />
+          <input type='text' name='author' value={this.state.newComment.author} />
+          <input type='text' name='voteScore' value={this.state.newComment.voteScore} />
+        </form>
 
         <ul>
           {orderby(this.state.comments, 'voteScore', 'desc').map(comment => (

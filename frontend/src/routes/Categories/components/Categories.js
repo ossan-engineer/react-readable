@@ -1,8 +1,12 @@
 import React, { Component } from 'react';
 import { Link, NavLink, withRouter } from 'react-router-dom';
 import { Tabs, Tab } from 'material-ui/Tabs';
+import FlatButton from 'material-ui/FlatButton';
+import SelectField from 'material-ui/SelectField';
+import MenuItem from 'material-ui/MenuItem';
 import Post from '../../../components/Post';
 import api from '../../../utils/api';
+import CreatePostContainer from '../../../containers/CreatePostContainer';
 
 class Categories extends Component {
   constructor(props) {
@@ -61,13 +65,42 @@ class Categories extends Component {
         >
           {this.state.categories.map(category => (
             <Tab
-              label={<span style={{ color: '#0275d8' }}>{category.name}</span>}
+              label={<span style={{ color: 'rgba(0, 0, 0, 0.87)' }}>{category.name}</span>}
               key={category.name}
               onActive={this.handleActive}
               value={category.name}
             />
           ))}
         </Tabs>
+
+        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+          {!this.state.editing ? (
+            <FlatButton
+              label='Create New Post'
+              onClick={() => {
+                this.setState({
+                  editing: true,
+                });
+              }}
+            />
+          ) : (
+            <div />
+          )}
+          <SelectField
+            floatingLabelText='Sort By'
+            value={this.state.order}
+            onChange={this.handleChange}
+          >
+            <MenuItem value='voteScore' primaryText='Best' />
+            <MenuItem value='timestamp' primaryText='Latest' />
+          </SelectField>
+        </div>
+
+        {this.state.editing ? (
+          <div>
+            <CreatePostContainer categories={this.state.categories} onCancel={this.handleCancel} />
+          </div>
+        ) : null}
 
         <ul>
           {this.state.posts.map(post => (
