@@ -4,6 +4,7 @@ import { Tabs, Tab } from 'material-ui/Tabs';
 import FlatButton from 'material-ui/FlatButton';
 import SelectField from 'material-ui/SelectField';
 import MenuItem from 'material-ui/MenuItem';
+import orderby from 'lodash.orderby';
 import Post from '../../../components/Post';
 import api from '../../../utils/api';
 import CreatePostContainer from '../../../containers/CreatePostContainer';
@@ -15,6 +16,8 @@ class Categories extends Component {
     this.state = {
       categories: [],
       posts: [],
+      order: 'voteScore',
+      editing: false,
     };
   }
 
@@ -48,7 +51,15 @@ class Categories extends Component {
     // alert(`A tab with this route property ${tab.props['data-route']} was activated.`);
     this.props.history.push(`/category/${tab.props.value}`);
     this.updatePost(tab.props.value);
-  }
+  };
+
+  handleChange = (event, index, value) => this.setState({ order: value });
+
+  handleCancel = () => {
+    this.setState({
+      editing: false,
+    });
+  };
 
   render() {
     const { match } = this.props;
@@ -103,7 +114,7 @@ class Categories extends Component {
         ) : null}
 
         <ul>
-          {this.state.posts.map(post => (
+          {orderby(this.state.posts, this.state.order, 'desc').map(post => (
             <li key={post.id}>
               <Post post={post} />
             </li>

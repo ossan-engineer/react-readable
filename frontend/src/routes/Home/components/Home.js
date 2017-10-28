@@ -30,6 +30,7 @@ class Home extends Component {
       posts: [],
       // comments: {},
       order: 'voteScore',
+      editing: false,
     };
   }
 
@@ -64,7 +65,7 @@ class Home extends Component {
     });
   };
 
-  handleChange = (event, index, value) => this.setState({ order: value })
+  handleChange = (event, index, value) => this.setState({ order: value });
 
   render() {
     const { counter, increment, doubleAsync, match, handleSubmit } = this.props;
