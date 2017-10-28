@@ -44,7 +44,7 @@ class Home extends Component {
 
   handleActive = (tab) => {
     // alert(`A tab with this route property ${tab.props['data-route']} was activated.`);
-    this.props.history.push(tab.props.value);
+    this.props.history.push(`/category/${tab.props.value}`);
     // this.updatePost(tab.props.value);
   }
 
@@ -95,7 +95,7 @@ class Home extends Component {
         <ul>
           {this.state.categories.map(category => (
             <li key={category.name}>
-              <NavLink to={`/${category.path}`}>
+              <NavLink to={`/category/${category.path}`}>
                 {category.name}
               </NavLink>
             </li>

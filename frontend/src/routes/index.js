@@ -25,7 +25,7 @@ const Routes = () => (
           <Route exact path='/' component={HomeContainer} />
           <Route path='/posts/:id' component={Detail} />
           <Route path='/posts/:id/edit' component={Detail} />
-          <Route path='/:category' component={Categories} />
+          <Route path='/category/:category' component={Categories} />
         </Switch>
       </div>
     </div>
