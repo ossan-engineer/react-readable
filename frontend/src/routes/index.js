@@ -6,8 +6,8 @@ import {
   Link,
 } from 'react-router-dom';
 import AppBar from 'material-ui/AppBar';
-import HomeContainer from '../containers/HomeContainer';
-import Categories from '../components/Categories';
+import HomeContainer from './Home/containers/HomeContainer';
+import Categories from './Categories/components/Categories';
 import Detail from '../components/PostDetail';
 
 const Routes = () => (

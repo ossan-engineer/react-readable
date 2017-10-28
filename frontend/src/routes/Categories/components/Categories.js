@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Link, NavLink, withRouter } from 'react-router-dom';
 import { Tabs, Tab } from 'material-ui/Tabs';
-import api from '../utils/api';
+import api from '../../../utils/api';
 
 class Categories extends Component {
   constructor(props) {

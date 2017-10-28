@@ -12,8 +12,8 @@ import {
 } from 'material-ui/Card';
 import Chip from 'material-ui/Chip';
 import Divider from 'material-ui/Divider';
-import api from '../utils/api';
-import CreatePostContainer from '../containers/CreatePostContainer';
+import api from '../../../utils/api';
+import CreatePostContainer from '../../../containers/CreatePostContainer';
 
 class Home extends Component {
   constructor(props) {
