@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 // import { Route, Link } from 'react-router-dom';
+import orderby from 'lodash.orderby';
 import Comment from './Comment';
 import api from '../utils/api';
 
@@ -89,7 +90,7 @@ class Detail extends Component {
         )}
 
         <ul>
-          {this.state.comments.map(comment => (
+          {orderby(this.state.comments, 'voteScore', 'desc').map(comment => (
             <li key={comment.id}>
               <Comment {...comment} />
             </li>
