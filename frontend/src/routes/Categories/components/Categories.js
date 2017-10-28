@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Link, NavLink, withRouter } from 'react-router-dom';
 import { Tabs, Tab } from 'material-ui/Tabs';
+import Post from '../../../components/Post';
 import api from '../../../utils/api';
 
 class Categories extends Component {
@@ -71,15 +72,7 @@ class Categories extends Component {
         <ul>
           {this.state.posts.map(post => (
             <li key={post.id}>
-              <Link to={`/posts/${post.id}`}>
-                <div>title: {post.title}</div>
-                <div>timestamp: {post.timestamp}</div>
-                <div>author: {post.author}</div>
-                <div>category: {post.category}</div>
-                <div>body: {post.body}</div>
-                <div>voteScore: {post.voteScore}</div>
-                <div>delted: {post.deleted.toString()}</div>
-              </Link>
+              <Post post={post} />
             </li>
           ))}
         </ul>

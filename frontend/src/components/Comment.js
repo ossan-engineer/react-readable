@@ -1,4 +1,7 @@
 import React, { Component } from 'react';
+import IconButton from 'material-ui/IconButton';
+import KeyboardArrowUp from 'material-ui/svg-icons/hardware/keyboard-arrow-up';
+import KeyboardArrowDown from 'material-ui/svg-icons/hardware/keyboard-arrow-down';
 import './Comment.css';
 
 class Comment extends Component {
@@ -68,6 +71,18 @@ class Comment extends Component {
             </div>
             <div>
               parentDeleted: {parentDeleted.toString()}
+            </div>
+            <div style={{ display: 'flex', justifyContent: 'center' }}>
+              <IconButton tooltip='up'>
+                <KeyboardArrowUp />
+              </IconButton>
+              <div>
+                <span style={{ fontSize: 24, margin: '0 5px' }}>{voteScore}</span>
+                votes
+              </div>
+              <IconButton tooltip='down'>
+                <KeyboardArrowDown />
+              </IconButton>
             </div>
             <a href="#" onClick={(e) => {
               e.preventDefault();
