@@ -52,7 +52,6 @@ class Categories extends Component {
 
     return (
       <div>
-        <h2>{match.params.category}</h2>
         <Tabs value={match.params.category}>
           {this.state.categories.map(category => (
             <Tab
@@ -64,7 +63,6 @@ class Categories extends Component {
           ))}
         </Tabs>
 
-        <h2>Posts</h2>
         <ul>
           {this.state.posts.map(post => (
             <li key={post.id}>

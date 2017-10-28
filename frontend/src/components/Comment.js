@@ -77,6 +77,11 @@ class Comment extends Component {
             }}>
               Edit
             </a>
+            <a href="#" onClick={(e) => {
+              e.preventDefault();
+            }}>
+              Delete
+            </a>
           </div>
         )}
       </div>

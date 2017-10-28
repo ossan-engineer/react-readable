@@ -62,17 +62,6 @@ class Home extends Component {
 
     return (
       <div>
-        <h2>Home</h2>
-        <div>
-          <h2>Home: {counter}</h2>
-          <button className='btn btn-primary' onClick={increment}>
-            Increment
-          </button>
-          {' '}
-          <button className='btn btn-secondary' onClick={doubleAsync}>
-            Double (Async)
-          </button>
-        </div>
         <ul>
           <li
             onClick={() => {
@@ -91,18 +80,7 @@ class Home extends Component {
           </div>
         ) : null}
 
-        <h2>Categories</h2>
-        <ul>
-          {this.state.categories.map(category => (
-            <li key={category.name}>
-              <NavLink to={`/category/${category.path}`}>
-                {category.name}
-              </NavLink>
-            </li>
-          ))}
-        </ul>
-
-        <Tabs value={match.params.category}>
+        <Tabs initialSelectedIndex={-1}>
           {this.state.categories.map(category => (
             <Tab
               label={category.name}
@@ -113,7 +91,6 @@ class Home extends Component {
           ))}
         </Tabs>
 
-        <h2>Posts</h2>
         <ul>
           {this.state.posts.map(post => (
             <li key={post.id}>

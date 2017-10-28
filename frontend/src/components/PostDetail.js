@@ -38,7 +38,6 @@ class Detail extends Component {
 
     return (
       <div>
-        <h2>Post</h2>
         {this.state.post.editing ? (
           <div>
             <form>
@@ -72,6 +71,9 @@ class Detail extends Component {
               });
             }}>Edit
             </button>
+            <button onClick={() => {
+            }}>Delete
+            </button>
             <div>title: {this.state.post.title}</div>
             <div>timestamp: {this.state.post.timestamp}</div>
             <div>author: {this.state.post.author}</div>
@@ -86,7 +88,6 @@ class Detail extends Component {
           </div>
         )}
 
-        <h2>Comments</h2>
         <ul>
           {this.state.comments.map(comment => (
             <li key={comment.id}>
