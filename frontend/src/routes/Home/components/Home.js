@@ -10,8 +10,11 @@ import {
   CardTitle,
   CardText,
 } from 'material-ui/Card';
+import SelectField from 'material-ui/SelectField';
+import MenuItem from 'material-ui/MenuItem';
 import Chip from 'material-ui/Chip';
 import Divider from 'material-ui/Divider';
+import orderby from 'lodash.orderby';
 import api from '../../../utils/api';
 import CreatePostContainer from '../../../containers/CreatePostContainer';
 
@@ -22,6 +25,7 @@ class Home extends Component {
     this.state = {
       categories: [],
       posts: [],
+      order: 'voteScore',
     };
   }
 
@@ -46,13 +50,15 @@ class Home extends Component {
     // alert(`A tab with this route property ${tab.props['data-route']} was activated.`);
     this.props.history.push(`/category/${tab.props.value}`);
     // this.updatePost(tab.props.value);
-  }
+  };
 
   handleCancel = () => {
     this.setState({
       editing: false,
     });
-  }
+  };
+
+  handleChange = (event, index, value) => this.setState({ order: value })
 
   render() {
     const { counter, increment, doubleAsync, match, handleSubmit } = this.props;
@@ -62,6 +68,22 @@ class Home extends Component {
 
     return (
       <div>
+        <Tabs
+          initialSelectedIndex={-1}
+          tabItemContainerStyle={{
+            backgroundColor: 'transparent',
+          }}
+        >
+          {this.state.categories.map(category => (
+            <Tab
+              label={<span style={{ color: '#0275d8' }}>{category.name}</span>}
+              key={category.name}
+              onActive={this.handleActive}
+              value={category.name}
+            />
+          ))}
+        </Tabs>
+
         <ul>
           <li
             onClick={() => {
@@ -80,24 +102,17 @@ class Home extends Component {
           </div>
         ) : null}
 
-        <Tabs
-          initialSelectedIndex={-1}
-          tabItemContainerStyle={{
-            backgroundColor: 'transparent',
-          }}
+        <SelectField
+          floatingLabelText='Sort By'
+          value={this.state.order}
+          onChange={this.handleChange}
         >
-          {this.state.categories.map(category => (
-            <Tab
-              label={<span style={{ color: '#0275d8' }}>{category.name}</span>}
-              key={category.name}
-              onActive={this.handleActive}
-              value={category.name}
-            />
-          ))}
-        </Tabs>
+          <MenuItem value='voteScore' primaryText='Best' />
+          <MenuItem value='timestamp' primaryText='Latest' />
+        </SelectField>
 
         <ul>
-          {this.state.posts.map(post => (
+          {orderby(this.state.posts, this.state.order, 'desc').map(post => (
             <li key={post.id}>
               <Card style={{ marginBottom: 15 }}>
                 <CardHeader
