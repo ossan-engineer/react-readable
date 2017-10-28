@@ -18,6 +18,7 @@ const Routes = () => (
           title='React Readable'
           showMenuIconButton={false}
           titleStyle={{ textAlign: 'center' }}
+          style={{ backgroundColor: '#000' }}
         />
       </Link>
       <div className='container-fluid'>

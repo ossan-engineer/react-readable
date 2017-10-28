@@ -46,7 +46,7 @@ class Post extends Component {
               <KeyboardArrowUp />
             </IconButton>
             <div>
-              <span style={{ fontSize: 24, margin: '0 5px' }}>{post.voteScore}</span>
+              <span style={{ fontSize: 24, margin: '0 5px', fontWeight: 'bold' }}>{post.voteScore}</span>
               votes
             </div>
             <IconButton tooltip='down'>
