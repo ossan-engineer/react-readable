@@ -80,10 +80,15 @@ class Home extends Component {
           </div>
         ) : null}
 
-        <Tabs initialSelectedIndex={-1}>
+        <Tabs
+          initialSelectedIndex={-1}
+          tabItemContainerStyle={{
+            backgroundColor: 'transparent',
+          }}
+        >
           {this.state.categories.map(category => (
             <Tab
-              label={category.name}
+              label={<span style={{ color: '#0275d8' }}>{category.name}</span>}
               key={category.name}
               onActive={this.handleActive}
               value={category.name}

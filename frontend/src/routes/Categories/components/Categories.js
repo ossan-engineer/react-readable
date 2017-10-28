@@ -52,10 +52,15 @@ class Categories extends Component {
 
     return (
       <div>
-        <Tabs value={match.params.category}>
+        <Tabs
+          value={match.params.category}
+          tabItemContainerStyle={{
+            backgroundColor: 'transparent',
+          }}
+        >
           {this.state.categories.map(category => (
             <Tab
-              label={category.name}
+              label={<span style={{ color: '#0275d8' }}>{category.name}</span>}
               key={category.name}
               onActive={this.handleActive}
               value={category.name}
