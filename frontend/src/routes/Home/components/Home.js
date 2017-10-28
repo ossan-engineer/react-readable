@@ -15,6 +15,8 @@ import MenuItem from 'material-ui/MenuItem';
 import Chip from 'material-ui/Chip';
 import Divider from 'material-ui/Divider';
 import orderby from 'lodash.orderby';
+import pluck from 'lodash.pluck';
+import Post from '../../../components/Post';
 import api from '../../../utils/api';
 import CreatePostContainer from '../../../containers/CreatePostContainer';
 
@@ -25,6 +27,7 @@ class Home extends Component {
     this.state = {
       categories: [],
       posts: [],
+      // comments: {},
       order: 'voteScore',
     };
   }
@@ -37,13 +40,15 @@ class Home extends Component {
       });
     });
 
-    api.get('posts').then((res) => {
-      console.log(res.data);
-      this.setState({
-        posts: res.data,
-        editing: false,
+    api.get('posts')
+      .then((res) => {
+        console.log(res.data);
+        this.setState({
+          posts: res.data,
+          editing: false,
+        });
+        return res;
       });
-    });
   }
 
   handleActive = (tab) => {
@@ -114,28 +119,7 @@ class Home extends Component {
         <ul>
           {orderby(this.state.posts, this.state.order, 'desc').map(post => (
             <li key={post.id}>
-              <Card style={{ marginBottom: 15 }}>
-                <CardHeader
-                  title={post.voteScore}
-                />
-                <Divider />
-                <Link
-                  to={`/posts/${post.id}`}
-                >
-                  <CardTitle title={post.title} subtitle={`${post.author}`} />
-                </Link>
-                <CardText>
-                  {post.body}
-                  <div style={{ display: 'flex' }}>
-                    <Chip>
-                      {post.category}
-                    </Chip>
-                    <Chip backgroundColor='rgba(255, 255, 255, 1)'>
-                      {post.timestamp}
-                    </Chip>
-                  </div>
-                </CardText>
-              </Card>
+              <Post post={post} />
             </li>
           ))}
         </ul>

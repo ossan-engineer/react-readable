@@ -4,7 +4,7 @@ import orderby from 'lodash.orderby';
 import Comment from './Comment';
 import api from '../utils/api';
 
-class Detail extends Component {
+class PostDetail extends Component {
   constructor(props) {
     super(props);
 
@@ -133,4 +133,4 @@ class Detail extends Component {
   }
 }
 
-export default Detail;
+export default PostDetail;

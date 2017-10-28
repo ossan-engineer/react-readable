@@ -6,6 +6,7 @@
     "axios": "^0.16.2",
     "bootstrap": "4.0.0-alpha.6",
     "lodash.orderby": "^4.6.0",
+    "lodash.pluck": "^3.1.2",
     "material-ui": "^0.19.4",
     "prop-types": "^15.6.0",
     "react": "^16.0.0",
