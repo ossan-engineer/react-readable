@@ -12,6 +12,9 @@ class Detail extends Component {
       post: {
         editing: false,
       },
+      newComment: {
+        editing: false,
+      },
       comments: [],
     };
 
@@ -87,6 +90,35 @@ class Detail extends Component {
               <input type='submit' value='Submit' />
             </form>
           </div>
+        )}
+
+        {this.state.newComment.editing ? (
+          <div>
+            <form>
+              <input type='submit' value='Save' />
+              <button onClick={() => {
+                this.setState({
+                  newComment: {
+                    editing: false,
+                  }
+                });
+              }}>Cancel</button>
+              <input type='text' name='body' value={this.state.newComment.body} />
+              <input type='text' name='author' value={this.state.newComment.author} />
+              <input type='text' name='voteScore' value={this.state.newComment.voteScore} />
+            </form>
+          </div>
+        ) : (
+          <button onClick={() => {
+            this.setState({
+              newComment: {
+                editing: true,
+              },
+            });
+          }}
+          >
+            Add Comment
+          </button>
         )}
 
         <ul>
