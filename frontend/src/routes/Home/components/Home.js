@@ -89,8 +89,8 @@ class Home extends Component {
           ))}
         </Tabs>
 
-        <ul>
-          <li
+        <div style={{ display: 'flex' }}>
+          <button
             onClick={() => {
               this.setState({
                 editing: true,
@@ -98,23 +98,23 @@ class Home extends Component {
             }}
           >
             Create New Post
-          </li>
-        </ul>
+          </button>
+
+          <SelectField
+            floatingLabelText='Sort By'
+            value={this.state.order}
+            onChange={this.handleChange}
+          >
+            <MenuItem value='voteScore' primaryText='Best' />
+            <MenuItem value='timestamp' primaryText='Latest' />
+          </SelectField>
+        </div>
 
         {this.state.editing ? (
           <div>
             <CreatePostContainer categories={this.state.categories} onCancel={this.handleCancel} />
           </div>
         ) : null}
-
-        <SelectField
-          floatingLabelText='Sort By'
-          value={this.state.order}
-          onChange={this.handleChange}
-        >
-          <MenuItem value='voteScore' primaryText='Best' />
-          <MenuItem value='timestamp' primaryText='Latest' />
-        </SelectField>
 
         <ul>
           {orderby(this.state.posts, this.state.order, 'desc').map(post => (

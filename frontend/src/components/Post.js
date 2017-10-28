@@ -77,7 +77,7 @@ class Post extends Component {
           </Link>
         </CardText>
       </Card>
-    )
+    );
   }
 }
 
