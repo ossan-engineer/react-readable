@@ -10,13 +10,16 @@ class Comment extends Component {
   }
 
   render() {
-    const {timestamp, author, body, voteScore} = this.props;
+    const {parentId, timestamp, author, body, voteScore, deleted, parentDeleted} = this.props;
 
     return (
       <div>
         {this.state.editing ? (
           <div>
             <form>
+              <div>
+                parentId: {parentId}
+              </div>
               <div>
                 timestamp: <input type='text' name='timestamp' value={timestamp} />
               </div>
@@ -29,6 +32,12 @@ class Comment extends Component {
               <div>
                 voteStore: <input type='text' name='voteScore' value={voteScore} />
               </div>
+              <div>
+                deleted: {deleted.toString()}
+              </div>
+              <div>
+                parentDeleted: {parentDeleted.toString()}
+              </div>
               <input type='submit' value='Save' />
               <button onClick={() => {
                 this.setState({
@@ -40,6 +49,9 @@ class Comment extends Component {
         ) : (
           <div>
             <div>
+              parentId: {parentId}
+            </div>
+            <div>
               timestamp: {timestamp}
             </div>
             <div>
@@ -50,6 +62,12 @@ class Comment extends Component {
             </div>
             <div>
               voteStore: {voteScore}
+            </div>
+            <div>
+              deleted: {deleted.toString()}
+            </div>
+            <div>
+              parentDeleted: {parentDeleted.toString()}
             </div>
             <a href="#" onClick={(e) => {
               e.preventDefault();

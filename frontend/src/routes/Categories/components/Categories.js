@@ -75,6 +75,7 @@ class Categories extends Component {
                 <div>category: {post.category}</div>
                 <div>body: {post.body}</div>
                 <div>voteScore: {post.voteScore}</div>
+                <div>delted: {post.deleted.toString()}</div>
               </Link>
             </li>
           ))}
