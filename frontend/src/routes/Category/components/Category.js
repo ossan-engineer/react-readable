@@ -6,7 +6,7 @@ import SelectField from 'material-ui/SelectField';
 import MenuItem from 'material-ui/MenuItem';
 import orderby from 'lodash.orderby';
 import api from '../../../utils/api';
-import CategoryTabs from '../../../components/CategoryTabs';
+import CategoryTabsContainer from '../../../containers/CategoryTabsContainer';
 import PostSummaryContainer from '../../../containers/PostSummaryContainer';
 import CreatePostContainer from '../../../containers/CreatePostContainer';
 
@@ -81,7 +81,7 @@ class Category extends Component {
 
     return (
       <div>
-        <CategoryTabs category={match.params.category} />
+        <CategoryTabsContainer activeCategory={match.params.category} />
 
         <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
           {!this.state.editing ? (

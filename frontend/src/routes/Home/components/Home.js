@@ -6,7 +6,7 @@ import { Tabs, Tab } from 'material-ui/Tabs';
 import SelectField from 'material-ui/SelectField';
 import MenuItem from 'material-ui/MenuItem';
 import orderby from 'lodash.orderby';
-import CategoryTabs from '../../../components/CategoryTabs';
+import CategoryTabsContainer from '../../../containers/CategoryTabsContainer';
 import PostSummaryContainer from '../../../containers/PostSummaryContainer';
 import api from '../../../utils/api';
 import CreatePostContainer from '../../../containers/CreatePostContainer';
@@ -77,7 +77,7 @@ class Home extends Component {
 
     return (
       <div>
-        <CategoryTabs />
+        <CategoryTabsContainer />
 
         <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
           {!this.state.editing ? (
