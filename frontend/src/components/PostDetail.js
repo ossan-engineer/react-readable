@@ -1,6 +1,9 @@
 import React, { Component } from 'react';
 import { Route, Link } from 'react-router-dom';
+import { Field, reduxForm } from 'redux-form';
 import orderby from 'lodash.orderby';
+import TextField from 'material-ui/TextField';
+import FlatButton from 'material-ui/FlatButton';
 import IconButton from 'material-ui/IconButton';
 import {
   Card,
@@ -49,14 +52,39 @@ class PostDetail extends Component {
     })
   }
 
+  handleSubmitComment = (values) => {
+    console.log(values);
+    api.post('comments', values);
+  }
+
+  renderTextField = ({
+    input,
+    label,
+    meta: { touched, error },
+    ...custom
+  }) => (
+    <TextField
+      hintText={label}
+      floatingLabelText={label}
+      errorText={touched && error}
+      {...input}
+      {...custom}
+    />
+  );
+
   render() {
+    const { handleSubmit, pristine, submitting, valid } = this.props;
     const { post } = this.state;
 
     return (
       <div>
         {this.state.post.editing ? (
           <div>
-            <form>
+            <form
+              onSubmit={handleSubmit(values => {
+                console.log(values);
+              })}
+            >
               <input type='submit' value='Save' />
               <button onClick={() => {
                 const newPost = Object.assign({}, this.state.post, {
@@ -99,23 +127,9 @@ class PostDetail extends Component {
               <CardTitle title={post.title} subtitle={`${post.author}`} />
             </Link>
 
-            <button onClick={() => {
-              const newPost = Object.assign({}, this.state.post, {
-                editing: true,
-              });
-
-              this.setState({
-                post: newPost,
-              });
-            }}>Edit
-            </button>
-            <button onClick={() => {
-            }}>Delete
-            </button>
-
             <CardText>
-              {post.body}
-              <div style={{display: 'flex', marginTop: 30}}>
+              <div>{post.body}</div>
+              <div style={{display: 'flex', margin: '30px 0'}}>
                 <Chip>
                   {post.category}
                 </Chip>
@@ -126,34 +140,86 @@ class PostDetail extends Component {
                   {this.state.comments.length} Comments
                 </Chip>
               </div>
+
+              <FlatButton onClick={() => {
+                const newPost = Object.assign({}, this.state.post, {
+                  editing: true,
+                });
+
+                this.setState({
+                  post: newPost,
+                });
+              }}>Edit
+              </FlatButton>
+              <FlatButton onClick={() => {
+              }}>Delete
+              </FlatButton>
             </CardText>
           </Card>
         )}
 
-        <form>
-          <input type='submit' value='Save' />
-          <button onClick={() => {
-            this.setState({
-              newComment: {
-                editing: false,
-              }
-            });
-          }}>Cancel</button>
-          <input type='text' name='body' value={this.state.newComment.body} />
-          <input type='text' name='author' value={this.state.newComment.author} />
-          <input type='text' name='voteScore' value={this.state.newComment.voteScore} />
-        </form>
+        <Card>
+          <CardText>
+            <div>
+              <form
+                onSubmit={handleSubmit((values) => {
+                  console.log(values);
+                  this.handleSubmitComment(values);
+                })}
+              >
+                <Field
+                  name='author'
+                  label='Author'
+                  fullWidth
+                  component={this.renderTextField}
+                /><br />
+                <Field
+                  name='body'
+                  label='Comment'
+                  fullWidth
+                  multiLine
+                  rows={3}
+                  component={this.renderTextField}
+                /><br />
+                <FlatButton
+                  label='Submit'
+                  type='submit'
+                  primary
+                  disabled={pristine || submitting || !valid}
+                />
+              </form>
+            </div>
 
-        <ul>
-          {orderby(this.state.comments, 'voteScore', 'desc').map(comment => (
-            <li key={comment.id}>
-              <Comment {...comment} />
-            </li>
-          ))}
-        </ul>
+            <Divider style={{
+              marginTop: 30,
+              marginBottom: 30,
+              marginLeft: -16,
+              marginRight: -16,
+            }}
+            />
+
+            <ul>
+              {orderby(this.state.comments, 'voteScore', 'desc').map(comment => (
+                <li key={comment.id}>
+                  <Comment {...comment} />
+                  <Divider style={{
+                    marginTop: 30,
+                    marginBottom: 30,
+                    marginLeft: -16,
+                    marginRight: -16,
+                  }}
+                  />
+                </li>
+              ))}
+            </ul>
+          </CardText>
+        </Card>
       </div>
     )
   }
 }
 
-export default PostDetail;
+export default reduxForm({
+  form: 'postDetail',
+  // validate,
+})(PostDetail);
