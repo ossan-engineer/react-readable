@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import IconButton from 'material-ui/IconButton';
+import FlatButton from 'material-ui/FlatButton';
 import KeyboardArrowUp from 'material-ui/svg-icons/hardware/keyboard-arrow-up';
 import KeyboardArrowDown from 'material-ui/svg-icons/hardware/keyboard-arrow-down';
 import moment from 'moment';
@@ -14,16 +15,21 @@ class Comment extends Component {
   }
 
   render() {
-    const {parentId, timestamp, author, body, voteScore, deleted, parentDeleted} = this.props;
+    const {
+      parentId,
+      timestamp,
+      author,
+      body,
+      voteScore,
+      deleted,
+      parentDeleted,
+    } = this.props;
 
     return (
       <div>
         {this.state.editing ? (
           <div>
             <form>
-              <div>
-                parentId: {parentId}
-              </div>
               <div>
                 timestamp: <input type='text' name='timestamp' value={moment(timestamp).format('YYYY/MM/DD HH:mm:ss')} />
               </div>
@@ -34,27 +40,23 @@ class Comment extends Component {
                 body: <input type='text' name='body' value={body} />
               </div>
               <div>
-                voteStore: <input type='text' name='voteScore' value={voteScore} />
-              </div>
-              <div>
                 deleted: {deleted.toString()}
               </div>
               <div>
                 parentDeleted: {parentDeleted.toString()}
               </div>
-              <input type='submit' value='Save' />
-              <button onClick={() => {
+              <FlatButton type='submit'>
+                Save
+              </FlatButton>
+              <FlatButton onClick={() => {
                 this.setState({
                   editing: false,
                 });
-              }}>Cancel</button>
+              }}>Cancel</FlatButton>
             </form>
           </div>
         ) : (
           <div>
-            <div>
-              parentId: {parentId}
-            </div>
             <div>
               timestamp: {moment(timestamp).format('YYYY/MM/DD HH:mm:ss')}
             </div>
@@ -63,9 +65,6 @@ class Comment extends Component {
             </div>
             <div>
               body: {body}
-            </div>
-            <div>
-              voteStore: {voteScore}
             </div>
             <div>
               deleted: {deleted.toString()}
@@ -85,19 +84,19 @@ class Comment extends Component {
                 <KeyboardArrowDown />
               </IconButton>
             </div>
-            <a href="#" onClick={(e) => {
+            <FlatButton onClick={(e) => {
               e.preventDefault();
               this.setState({
                 editing: true,
               });
             }}>
               Edit
-            </a>
-            <a href="#" onClick={(e) => {
+            </FlatButton>
+            <FlatButton onClick={(e) => {
               e.preventDefault();
             }}>
               Delete
-            </a>
+            </FlatButton>
           </div>
         )}
       </div>
