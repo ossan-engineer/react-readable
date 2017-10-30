@@ -5,8 +5,8 @@ import FlatButton from 'material-ui/FlatButton';
 import SelectField from 'material-ui/SelectField';
 import MenuItem from 'material-ui/MenuItem';
 import orderby from 'lodash.orderby';
-import Post from '../../../components/Post';
 import api from '../../../utils/api';
+import PostSummaryContainer from '../../../containers/PostSummaryContainer';
 import CreatePostContainer from '../../../containers/CreatePostContainer';
 
 class Categories extends Component {
@@ -29,10 +29,10 @@ class Categories extends Component {
       });
     });
 
-    this.updatePost(this.props.match.params.category);
+    this.updatePosts(this.props.match.params.category);
   }
 
-  updatePost = (category) => {
+  updatePosts = (category) => {
     console.log(category);
 
     this.setState({
@@ -50,7 +50,7 @@ class Categories extends Component {
   handleActive = (tab) => {
     // alert(`A tab with this route property ${tab.props['data-route']} was activated.`);
     this.props.history.push(`/category/${tab.props.value}`);
-    this.updatePost(tab.props.value);
+    this.updatePosts(tab.props.value);
   };
 
   handleChange = (event, index, value) => this.setState({ order: value });
@@ -109,14 +109,21 @@ class Categories extends Component {
 
         {this.state.editing ? (
           <div>
-            <CreatePostContainer categories={this.state.categories} onCancel={this.handleCancel} />
+            <CreatePostContainer
+              categories={this.state.categories}
+              onCancel={this.handleCancel}
+              category={match.params.category}
+            />
           </div>
         ) : null}
 
         <ul>
           {orderby(this.state.posts, this.state.order, 'desc').map(post => (
             <li key={post.id}>
-              <Post post={post} />
+              <PostSummaryContainer
+                post={post}
+                updatePosts={this.updatePosts}
+              />
             </li>
           ))}
         </ul>

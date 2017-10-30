@@ -17,7 +17,7 @@ import KeyboardArrowDown from 'material-ui/svg-icons/hardware/keyboard-arrow-dow
 import moment from 'moment';
 import api from '../utils/api';
 
-class Post extends Component {
+class PostSummary extends Component {
   constructor(props) {
     super(props);
 
@@ -36,20 +36,26 @@ class Post extends Component {
   }
 
   render() {
-    const { post } = this.props;
+    const { post, voteAsync, updatePosts } = this.props;
 
     return (
       <Card style={{ marginBottom: 15 }}>
         <CardHeader>
           <div style={{ display: 'flex', justifyContent: 'center' }}>
-            <IconButton tooltip='up'>
+            <IconButton
+              tooltip='up'
+              onClick={() => voteAsync(post.id, 'upVote').then(() => updatePosts(post.category))}
+            >
               <KeyboardArrowUp />
             </IconButton>
             <div>
               <span style={{ fontSize: 24, margin: '0 5px', fontWeight: 'bold' }}>{post.voteScore}</span>
               votes
             </div>
-            <IconButton tooltip='down'>
+            <IconButton
+              tooltip='down'
+              onClick={() => voteAsync(post.id, 'downVote').then(() => updatePosts(post.category))}
+            >
               <KeyboardArrowDown />
             </IconButton>
           </div>
@@ -80,4 +86,4 @@ class Post extends Component {
   }
 }
 
-export default Post;
+export default PostSummary;

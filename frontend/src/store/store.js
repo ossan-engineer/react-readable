@@ -6,11 +6,13 @@ import { asyncSessionStorage } from 'redux-persist/storages';
 import { reducer as formReducer } from 'redux-form';
 import counterReducer from '../routes/Home/modules/counter';
 import createPostReducer from '../modules/createPost';
+import postSummaryReducer from '../modules/postSummary';
 
 const reducer = combineReducers({
   counter: counterReducer,
   form: formReducer,
   createPost: createPostReducer,
+  post: postSummaryReducer,
 });
 
 const store = createStore(

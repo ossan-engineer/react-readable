@@ -17,7 +17,7 @@ import Chip from 'material-ui/Chip';
 import Divider from 'material-ui/Divider';
 import orderby from 'lodash.orderby';
 import pluck from 'lodash.pluck';
-import Post from '../../../components/Post';
+import PostSummaryContainer from '../../../containers/PostSummaryContainer';
 import api from '../../../utils/api';
 import CreatePostContainer from '../../../containers/CreatePostContainer';
 
@@ -53,10 +53,22 @@ class Home extends Component {
       });
   }
 
+  updatePosts = () => {
+    api.get('posts')
+      .then((res) => {
+        console.log(res.data);
+        this.setState({
+          posts: res.data,
+          editing: false,
+        });
+        return res;
+      });
+  };
+
   handleActive = (tab) => {
     // alert(`A tab with this route property ${tab.props['data-route']} was activated.`);
     this.props.history.push(`/category/${tab.props.value}`);
-    // this.updatePost(tab.props.value);
+    // this.updatePosts(tab.props.value);
   };
 
   handleCancel = () => {
@@ -123,7 +135,10 @@ class Home extends Component {
         <ul>
           {orderby(this.state.posts, this.state.order, 'desc').map(post => (
             <li key={post.id}>
-              <Post post={post} />
+              <PostSummaryContainer
+                post={post}
+                updatePosts={this.updatePosts}
+              />
             </li>
           ))}
         </ul>

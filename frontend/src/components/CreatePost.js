@@ -67,7 +67,7 @@ class CreatePost extends Component {
   );
 
   render() {
-    const { handleSubmit, categories, onCancel, createPostAsync, pristine, submitting, valid, reset } = this.props;
+    const { handleSubmit, categories, onCancel, createPostAsync, match, pristine, submitting, valid, reset, category } = this.props;
 
     return (
       <Card style={{ marginBottom: 15 }}>
