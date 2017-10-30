@@ -3,20 +3,10 @@ import { Link, NavLink, withRouter } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import FlatButton from 'material-ui/FlatButton';
 import { Tabs, Tab } from 'material-ui/Tabs';
-import {
-  Card,
-  CardActions,
-  CardHeader,
-  CardMedia,
-  CardTitle,
-  CardText,
-} from 'material-ui/Card';
 import SelectField from 'material-ui/SelectField';
 import MenuItem from 'material-ui/MenuItem';
-import Chip from 'material-ui/Chip';
-import Divider from 'material-ui/Divider';
 import orderby from 'lodash.orderby';
-import pluck from 'lodash.pluck';
+import CategoryTabs from '../../../components/CategoryTabs';
 import PostSummaryContainer from '../../../containers/PostSummaryContainer';
 import api from '../../../utils/api';
 import CreatePostContainer from '../../../containers/CreatePostContainer';
@@ -87,21 +77,7 @@ class Home extends Component {
 
     return (
       <div>
-        <Tabs
-          initialSelectedIndex={-1}
-          tabItemContainerStyle={{
-            backgroundColor: 'transparent',
-          }}
-        >
-          {this.state.categories.map(category => (
-            <Tab
-              label={<span style={{ color: 'rgba(0, 0, 0, 0.87)' }}>{category.name}</span>}
-              key={category.name}
-              onActive={this.handleActive}
-              value={category.name}
-            />
-          ))}
-        </Tabs>
+        <CategoryTabs />
 
         <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
           {!this.state.editing ? (

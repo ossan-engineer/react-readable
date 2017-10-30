@@ -6,10 +6,11 @@ import SelectField from 'material-ui/SelectField';
 import MenuItem from 'material-ui/MenuItem';
 import orderby from 'lodash.orderby';
 import api from '../../../utils/api';
+import CategoryTabs from '../../../components/CategoryTabs';
 import PostSummaryContainer from '../../../containers/PostSummaryContainer';
 import CreatePostContainer from '../../../containers/CreatePostContainer';
 
-class Categories extends Component {
+class Category extends Component {
   constructor(props) {
     super(props);
 
@@ -30,6 +31,18 @@ class Categories extends Component {
     });
 
     this.updatePosts(this.props.match.params.category);
+  }
+
+  componentWillReceiveProps() {
+    console.log('UPDATE')
+    api.get('categories').then((res) => {
+      console.log(res.data);
+      this.setState({
+        categories: res.data.categories,
+      }, () => {
+        this.updatePosts(this.props.match.params.category);
+      });
+    });
   }
 
   updatePosts = (category) => {
@@ -68,21 +81,7 @@ class Categories extends Component {
 
     return (
       <div>
-        <Tabs
-          value={match.params.category}
-          tabItemContainerStyle={{
-            backgroundColor: 'transparent',
-          }}
-        >
-          {this.state.categories.map(category => (
-            <Tab
-              label={<span style={{ color: 'rgba(0, 0, 0, 0.87)' }}>{category.name}</span>}
-              key={category.name}
-              onActive={this.handleActive}
-              value={category.name}
-            />
-          ))}
-        </Tabs>
+        <CategoryTabs category={match.params.category} />
 
         <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
           {!this.state.editing ? (
@@ -132,4 +131,4 @@ class Categories extends Component {
   }
 }
 
-export default withRouter(Categories);
+export default withRouter(Category);
