@@ -12,7 +12,7 @@ const reducer = combineReducers({
   counter: counterReducer,
   form: formReducer,
   createPost: createPostReducer,
-  post: postSummaryReducer,
+  postSummary: postSummaryReducer,
 });
 
 const store = createStore(

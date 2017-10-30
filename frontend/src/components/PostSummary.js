@@ -16,6 +16,7 @@ import KeyboardArrowUp from 'material-ui/svg-icons/hardware/keyboard-arrow-up';
 import KeyboardArrowDown from 'material-ui/svg-icons/hardware/keyboard-arrow-down';
 import moment from 'moment';
 import api from '../utils/api';
+import {commentsAsync} from '../modules/postSummary';
 
 class PostSummary extends Component {
   constructor(props) {
@@ -27,16 +28,11 @@ class PostSummary extends Component {
   }
 
   componentDidMount() {
-    api.get(`posts/${this.props.post.id}/comments`)
-      .then((res) => {
-        this.setState({
-          comments: res.data,
-        });
-      });
+    this.props.commentsAsync(this.props.post.id);
   }
 
   render() {
-    const { post, voteAsync, updatePosts } = this.props;
+    const { post, voteAsync, commentsAsync, updatePosts } = this.props;
 
     return (
       <Card style={{ marginBottom: 15 }}>
