@@ -12,7 +12,12 @@ export const voteAsync = (postId, voteType) => (dispatch) => {
   });
   dispatch({ type: VOTE_REQUEST });
 
-  return api.post(`posts/${postId}`, newValues);
+  return api.post(`posts/${postId}`, newValues)
+    .then(() => dispatch({ type: VOTE_SUCCESS }))
+    .catch((err) => {
+      dispatch({ type: VOTE_FAILURE });
+      throw err;
+    });
 };
 
 // Action Handles

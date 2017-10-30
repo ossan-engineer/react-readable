@@ -14,7 +14,12 @@ export const createPostAsync = values => (dispatch) => {
   });
   dispatch({ type: CREATE_POST_REQUEST });
 
-  return api.post('posts', newValues);
+  return api.post('posts', newValues)
+    .then(() => dispatch({ type: CREATE_POST_SUCCESS }))
+    .catch((err) => {
+      dispatch({ type: CREATE_POST_FAILURE })
+      throw err;
+    });
 };
 
 // Action Handles
