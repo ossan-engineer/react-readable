@@ -28,7 +28,10 @@ class PostSummary extends Component {
   }
 
   componentDidMount() {
-    this.props.commentsAsync(this.props.post.id);
+    this.props.commentsAsync(this.props.post.id)
+      .then((res) => this.setState({
+        comments: res,
+      }));
   }
 
   render() {
