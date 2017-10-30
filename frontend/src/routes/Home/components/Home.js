@@ -148,9 +148,6 @@ class Home extends Component {
 }
 
 Home.propTypes = {
-  counter: PropTypes.number.isRequired,
-  increment: PropTypes.func.isRequired,
-  doubleAsync: PropTypes.func.isRequired,
   match: PropTypes.object.isRequired, // TODO: Use shape
 };
 

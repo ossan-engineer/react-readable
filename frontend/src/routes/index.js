@@ -7,7 +7,7 @@ import {
 } from 'react-router-dom';
 import AppBar from 'material-ui/AppBar';
 import HomeContainer from './Home/containers/HomeContainer';
-import Categories from './Categories/components/Categories';
+import Category from './Category/components/Category';
 import PostDetail from '../components/PostDetail';
 
 const Routes = () => (
@@ -26,7 +26,7 @@ const Routes = () => (
           <Route exact path='/' component={HomeContainer} />
           <Route path='/posts/:id' component={PostDetail} />
           <Route path='/posts/:id/edit' component={PostDetail} />
-          <Route path='/category/:category' component={Categories} />
+          <Route path='/category/:category' component={Category} />
         </Switch>
       </div>
     </div>

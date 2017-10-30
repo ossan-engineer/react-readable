@@ -4,12 +4,10 @@ import logger from 'redux-logger';
 import { persistStore, autoRehydrate } from 'redux-persist';
 import { asyncSessionStorage } from 'redux-persist/storages';
 import { reducer as formReducer } from 'redux-form';
-import counterReducer from '../routes/Home/modules/counter';
 import createPostReducer from '../modules/createPost';
 import postSummaryReducer from '../modules/postSummary';
 
 const reducer = combineReducers({
-  counter: counterReducer,
   form: formReducer,
   createPost: createPostReducer,
   postSummary: postSummaryReducer,
