@@ -1,6 +1,5 @@
 import { createStore, combineReducers, compose, applyMiddleware } from 'redux';
 import thunk from 'redux-thunk';
-import logger from 'redux-logger';
 import { persistStore, autoRehydrate } from 'redux-persist';
 import { asyncSessionStorage } from 'redux-persist/storages';
 import { reducer as formReducer } from 'redux-form';
@@ -17,9 +16,9 @@ const reducer = combineReducers({
 
 const store = createStore(
   reducer,
-  undefined,
+  window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__(),
   compose(
-    applyMiddleware(thunk, logger),
+    applyMiddleware(thunk),
     autoRehydrate(),
   ),
 );
