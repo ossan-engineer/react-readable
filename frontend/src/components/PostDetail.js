@@ -49,13 +49,22 @@ class PostDetail extends Component {
       this.setState({
         comments: res.data,
       });
-    })
+    });
   }
 
   handleSubmitComment = (values) => {
     console.log(values);
     api.post('comments', values);
-  }
+  };
+
+  updatePost = () => {
+    api.get(`posts/${this.props.match.params.id}`).then((res) => {
+      console.log(res.data);
+      this.setState({
+        post: res.data,
+      });
+    });
+  };
 
   renderTextField = ({
     input,
@@ -73,7 +82,14 @@ class PostDetail extends Component {
   );
 
   render() {
-    const { handleSubmit, pristine, submitting, valid } = this.props;
+    const {
+      voteAsync,
+      commentAsync,
+      handleSubmit,
+      pristine,
+      submitting,
+      valid,
+    } = this.props;
     const { post } = this.state;
 
     return (
@@ -82,14 +98,20 @@ class PostDetail extends Component {
           <Card style={{ marginTop: 15, marginBottom: 15 }}>
             <CardHeader>
               <div style={{ display: 'flex', justifyContent: 'center' }}>
-                <IconButton tooltip='up'>
+                <IconButton
+                  tooltip='up'
+                  onClick={() => voteAsync(post.id, 'upVote').then(() => this.updatePost(post.category))}
+                >
                   <KeyboardArrowUp />
                 </IconButton>
                 <div>
-                  <span style={{ fontSize: 24, margin: '0 5px' }}>{post.voteScore ? post.voteScore : 0}</span>
+                  <span style={{ fontSize: 24, margin: '0 5px', fontWeight: 'bold' }}>{post.voteScore}</span>
                   votes
                 </div>
-                <IconButton tooltip='down'>
+                <IconButton
+                  tooltip='down'
+                  onClick={() => voteAsync(post.id, 'downVote').then(() => this.updatePost(post.category))}
+                >
                   <KeyboardArrowDown />
                 </IconButton>
               </div>
@@ -129,18 +151,23 @@ class PostDetail extends Component {
           <Card style={{ marginTop: 15, marginBottom: 15 }}>
             <CardHeader>
               <div style={{ display: 'flex', justifyContent: 'center' }}>
-                <IconButton tooltip='up'>
+                <IconButton
+                  tooltip='up'
+                  onClick={() => voteAsync(post.id, 'upVote').then(() => this.updatePost(post.category))}
+                >
                   <KeyboardArrowUp />
                 </IconButton>
                 <div>
-                  <span style={{ fontSize: 24, margin: '0 5px' }}>{post.voteScore ? post.voteScore : 0}</span>
+                  <span style={{ fontSize: 24, margin: '0 5px', fontWeight: 'bold' }}>{post.voteScore}</span>
                   votes
                 </div>
-                <IconButton tooltip='down'>
+                <IconButton
+                  tooltip='down'
+                  onClick={() => voteAsync(post.id, 'downVote').then(() => this.updatePost(post.category))}
+                >
                   <KeyboardArrowDown />
                 </IconButton>
               </div>
-              
             </CardHeader>
 
             <Divider />

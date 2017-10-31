@@ -6,11 +6,13 @@ import { reducer as formReducer } from 'redux-form';
 import categoryTabsReducer from '../modules/categoryTabs';
 import createPostReducer from '../modules/createPost';
 import postSummaryReducer from '../modules/postSummary';
+import postDetailReducer from '../modules/postDetail';
 
 const reducer = combineReducers({
   form: formReducer,
   createPost: createPostReducer,
   postSummary: postSummaryReducer,
+  postDetail: postDetailReducer,
   categoryTabs: categoryTabsReducer,
 });
 

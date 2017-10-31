@@ -8,7 +8,7 @@ import {
 import AppBar from 'material-ui/AppBar';
 import HomeContainer from './Home/containers/HomeContainer';
 import Category from './Category/components/Category';
-import PostDetail from '../components/PostDetail';
+import PostDetailContainer from '../containers/PostDetailContainer';
 
 const Routes = () => (
   <BrowserRouter>
@@ -24,8 +24,8 @@ const Routes = () => (
       <div className='container-fluid'>
         <Switch>
           <Route exact path='/' component={HomeContainer} />
-          <Route path='/posts/:id' component={PostDetail} />
-          <Route path='/posts/:id/edit' component={PostDetail} />
+          <Route path='/posts/:id' component={PostDetailContainer} />
+          <Route path='/posts/:id/edit' component={PostDetailContainer} />
           <Route path='/category/:category' component={Category} />
         </Switch>
       </div>
