@@ -79,32 +79,7 @@ class PostDetail extends Component {
     return (
       <div>
         {this.state.post.editing ? (
-          <div>
-            <form
-              onSubmit={handleSubmit(values => {
-                console.log(values);
-              })}
-            >
-              <input type='submit' value='Save' />
-              <button onClick={() => {
-                const newPost = Object.assign({}, this.state.post, {
-                  editing: false,
-                });
-
-                this.setState({
-                  post: newPost,
-                });
-              }}>Cancel</button>
-              <input type='text' name='title' value={this.state.post.title} />
-              <input type='text' name='timestamp' value={this.state.post.timestamp} />
-              <input type='text' name='author' value={this.state.post.author} />
-              <input type='text' name='category' value={this.state.post.category} />
-              <input type='text' name='body' value={this.state.post.body} />
-              <input type='text' name='voteScore' value={this.state.post.voteScore} />
-            </form>
-          </div>
-        ) : (
-          <Card style={{ marginBottom: 15 }}>
+          <Card style={{ marginTop: 15, marginBottom: 15 }}>
             <CardHeader>
               <div style={{ display: 'flex', justifyContent: 'center' }}>
                 <IconButton tooltip='up'>
@@ -118,6 +93,54 @@ class PostDetail extends Component {
                   <KeyboardArrowDown />
                 </IconButton>
               </div>
+            </CardHeader>
+
+            <Divider />
+
+            <CardTitle title={<input type='text' name='title' value={this.state.post.title} />} subtitle={<input type='text' name='author' value={this.state.post.author} />} />
+            <CardText>
+              <div>
+                <form
+                  onSubmit={handleSubmit(values => {
+                    console.log(values);
+                  })}
+                >
+                  <input type='submit' value='Save' />
+                  <button onClick={() => {
+                    const newPost = Object.assign({}, this.state.post, {
+                      editing: false,
+                    });
+
+                    this.setState({
+                      post: newPost,
+                    });
+                  }}>Cancel</button>
+
+                  <input type='text' name='timestamp' value={this.state.post.timestamp} />
+
+                  <input type='text' name='category' value={this.state.post.category} />
+                  <input type='text' name='body' value={this.state.post.body} />
+                  <input type='text' name='voteScore' value={this.state.post.voteScore} />
+                </form>
+              </div>
+            </CardText>
+          </Card>
+        ) : (
+          <Card style={{ marginTop: 15, marginBottom: 15 }}>
+            <CardHeader>
+              <div style={{ display: 'flex', justifyContent: 'center' }}>
+                <IconButton tooltip='up'>
+                  <KeyboardArrowUp />
+                </IconButton>
+                <div>
+                  <span style={{ fontSize: 24, margin: '0 5px' }}>{post.voteScore ? post.voteScore : 0}</span>
+                  votes
+                </div>
+                <IconButton tooltip='down'>
+                  <KeyboardArrowDown />
+                </IconButton>
+              </div>
+              
             </CardHeader>
 
             <Divider />
