@@ -3,6 +3,8 @@ import { Route, Link } from 'react-router-dom';
 import { Field, reduxForm } from 'redux-form';
 import orderby from 'lodash.orderby';
 import TextField from 'material-ui/TextField';
+import SelectField from 'material-ui/SelectField';
+import MenuItem from 'material-ui/MenuItem';
 import FlatButton from 'material-ui/FlatButton';
 import IconButton from 'material-ui/IconButton';
 import {
@@ -81,6 +83,25 @@ class PostDetail extends Component {
     />
   );
 
+  renderSelectField = ({
+    input,
+    label,
+    meta: { touched, error },
+    children,
+  }) => (
+    <SelectField
+      floatingLabelText='Category'
+      errorText={touched && error}
+      {...input}
+      onChange={(event, index, value) => input.onChange(value)}
+      children={children}
+    >
+      <MenuItem value='react' primaryText='React' />
+      <MenuItem value='redux' primaryText='Redux' />
+      <MenuItem value='udacity' primaryText='Udacity' />
+    </SelectField>
+  );
+
   render() {
     const {
       voteAsync,
@@ -89,6 +110,8 @@ class PostDetail extends Component {
       pristine,
       submitting,
       valid,
+      loadExistingData,
+      initialValues,
     } = this.props;
     const { post } = this.state;
 
@@ -119,16 +142,59 @@ class PostDetail extends Component {
 
             <Divider />
 
-            <CardTitle title={<input type='text' name='title' value={this.state.post.title} />} subtitle={<input type='text' name='author' value={this.state.post.author} />} />
-            <CardText>
-              <div>
-                <form
-                  onSubmit={handleSubmit(values => {
-                    console.log(values);
-                  })}
-                >
-                  <input type='submit' value='Save' />
-                  <button onClick={() => {
+            <form
+              onSubmit={handleSubmit(values => {
+                console.log(values);
+              })}
+            >
+              <CardTitle
+                title={
+                  <Field
+                    name='title'
+                    label='Title'
+                    type='text'
+                    component={this.renderTextField}
+                    fullWidth
+                  />
+                }
+                subtitle={
+                  <Field
+                    name='author'
+                    label='Author'
+                    type='text'
+                    component={this.renderTextField}
+                    fullWidth
+                  />
+                }
+              />
+              <CardText>
+                <Field
+                  name='body'
+                  label='Body'
+                  type='text'
+                  component={this.renderTextField}
+                  multiLine
+                  rows={3}
+                  fullWidth
+                />
+                <Field
+                  name='category'
+                  label='Category'
+                  type='text'
+                  component={this.renderSelectField}
+                  fullWidth
+                />
+                <Field
+                  name='timestamp'
+                  label='Timestamp'
+                  type='text'
+                  component={this.renderTextField}
+                  fullWidth
+                />
+                  <FlatButton type='submit'>
+                    Save
+                  </FlatButton>
+                  <FlatButton onClick={() => {
                     const newPost = Object.assign({}, this.state.post, {
                       editing: false,
                     });
@@ -136,16 +202,12 @@ class PostDetail extends Component {
                     this.setState({
                       post: newPost,
                     });
-                  }}>Cancel</button>
-
-                  <input type='text' name='timestamp' value={this.state.post.timestamp} />
-
-                  <input type='text' name='category' value={this.state.post.category} />
-                  <input type='text' name='body' value={this.state.post.body} />
-                  <input type='text' name='voteScore' value={this.state.post.voteScore} />
-                </form>
-              </div>
-            </CardText>
+                  }}
+                  >
+                    Cancel
+                  </FlatButton>
+              </CardText>
+            </form>
           </Card>
         ) : (
           <Card style={{ marginTop: 15, marginBottom: 15 }}>
@@ -199,6 +261,8 @@ class PostDetail extends Component {
                 this.setState({
                   post: newPost,
                 });
+
+                loadExistingData(this.state.post);
               }}>Edit
               </FlatButton>
               <FlatButton onClick={() => {
@@ -271,5 +335,6 @@ class PostDetail extends Component {
 
 export default reduxForm({
   form: 'postDetail',
+  enableReinitialize: true,
   // validate,
 })(PostDetail);

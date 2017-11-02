@@ -9,6 +9,8 @@ export const COMMENTS_REQUEST = 'COMMENTS_REQUEST';
 export const COMMENTS_SUCCESS = 'COMMENTS_SUCCESS';
 export const COMMENTS_FAILURE = 'COMMENTS_FAILURE';
 
+export const LOAD_EXISTING_DATA = 'LOAD_EXISTING_DATA';
+
 // Actions
 export const voteAsync = (postId, voteType) => (dispatch) => {
   const newValues = Object.assign({}, {
@@ -55,6 +57,11 @@ export const commentsAsync = postId => (dispatch) => {
     });
 };
 
+export const loadExistingData = data => ({
+  type: LOAD_EXISTING_DATA,
+  payload: data,
+});
+
 // Action Handles
 const ACTION_HANDLERS = {
   [VOTE_REQUEST]: state => Object.assign({}, state, {
@@ -82,6 +89,12 @@ const ACTION_HANDLERS = {
     fetching: false,
     error: action.payload,
   }),
+  [LOAD_EXISTING_DATA]: (state, action) => {
+    console.log(action.payload);
+    return Object.assign({}, state, {
+        ...action.payload,
+    });
+  }
 };
 
 // Reducer
@@ -89,6 +102,7 @@ const initialState = {
   fetching: false,
   error: null,
   comments: [],
+  existingData: {},
 };
 
 const postDetailReducer = (state = initialState, action) => {
