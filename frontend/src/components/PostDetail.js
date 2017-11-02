@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Route, Link } from 'react-router-dom';
+import { Route, Link, withRouter } from 'react-router-dom';
 import { Field, reduxForm } from 'redux-form';
 import orderby from 'lodash.orderby';
 import TextField from 'material-ui/TextField';
@@ -21,7 +21,7 @@ import KeyboardArrowUp from 'material-ui/svg-icons/hardware/keyboard-arrow-up';
 import KeyboardArrowDown from 'material-ui/svg-icons/hardware/keyboard-arrow-down';
 import moment from 'moment';
 import Comment from './Comment';
-import api from '../utils/api';
+import api, { apiClient } from '../utils/api';
 
 class PostDetail extends Component {
   constructor(props) {
@@ -266,6 +266,9 @@ class PostDetail extends Component {
               }}>Edit
               </FlatButton>
               <FlatButton onClick={() => {
+                window.confirm('Are you sure?') && apiClient.delete(`posts/${post.id}`).then(() => {
+                  this.props.history.push('/');
+                });
               }}>Delete
               </FlatButton>
             </CardText>
@@ -337,4 +340,4 @@ export default reduxForm({
   form: 'postDetail',
   enableReinitialize: true,
   // validate,
-})(PostDetail);
+})(withRouter(PostDetail));
