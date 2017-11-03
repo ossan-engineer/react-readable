@@ -7,12 +7,14 @@ import categoryTabsReducer from '../modules/categoryTabs';
 import createPostReducer from '../modules/createPost';
 import postSummaryReducer from '../modules/postSummary';
 import postDetailReducer from '../modules/postDetail';
+import commentReducer from '../modules/comment';
 
 const reducer = combineReducers({
   form: formReducer,
   createPost: createPostReducer,
   postSummary: postSummaryReducer,
   postDetail: postDetailReducer,
+  comment: commentReducer,
   categoryTabs: categoryTabsReducer,
 });
 

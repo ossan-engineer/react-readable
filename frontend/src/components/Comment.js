@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { withRouter } from 'react-router-dom';
 import IconButton from 'material-ui/IconButton';
 import FlatButton from 'material-ui/FlatButton';
 import KeyboardArrowUp from 'material-ui/svg-icons/hardware/keyboard-arrow-up';
@@ -24,7 +25,10 @@ class Comment extends Component {
       voteScore,
       deleted,
       parentDeleted,
+      removeCommentAsync,
       handleDelete,
+      history,
+      match,
     } = this.props;
 
     return (
@@ -95,8 +99,9 @@ class Comment extends Component {
               Edit
             </FlatButton>
             <FlatButton onClick={() => {
-              console.log(handleDelete);
-              handleDelete;
+              if (window.confirm('Are you sure?')) {
+                removeCommentAsync(id).then(() => history.push(match.url));
+              }
             }}>
               Delete
             </FlatButton>
@@ -107,4 +112,4 @@ class Comment extends Component {
   }
 }
 
-export default Comment;
+export default withRouter(Comment);

@@ -20,7 +20,7 @@ import Divider from 'material-ui/Divider';
 import KeyboardArrowUp from 'material-ui/svg-icons/hardware/keyboard-arrow-up';
 import KeyboardArrowDown from 'material-ui/svg-icons/hardware/keyboard-arrow-down';
 import moment from 'moment';
-import Comment from './Comment';
+import CommentContainer from '../containers/CommentContainer';
 import api, { apiClient } from '../utils/api';
 import { removeCommentAsync } from '../modules/postDetail';
 
@@ -47,6 +47,15 @@ class PostDetail extends Component {
       });
     });
 
+    api.get(`posts/${this.props.match.params.id}/comments`).then((res) => {
+      console.log(res.data);
+      this.setState({
+        comments: res.data,
+      });
+    });
+  }
+
+  componentWillReceiveProps() {
     api.get(`posts/${this.props.match.params.id}/comments`).then((res) => {
       console.log(res.data);
       this.setState({
@@ -309,9 +318,8 @@ class PostDetail extends Component {
             <ul>
               {orderby(this.state.comments, 'voteScore', 'desc').map(comment => (
                 <li key={comment.id}>
-                  <Comment
+                  <CommentContainer
                     {...comment}
-                    handleDelete={removeCommentAsync}
                   />
                   <Divider style={{
                     marginTop: 30,
