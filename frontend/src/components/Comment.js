@@ -16,6 +16,7 @@ class Comment extends Component {
 
   render() {
     const {
+      id,
       parentId,
       timestamp,
       author,
@@ -23,6 +24,7 @@ class Comment extends Component {
       voteScore,
       deleted,
       parentDeleted,
+      handleDelete,
     } = this.props;
 
     return (
@@ -92,8 +94,9 @@ class Comment extends Component {
             }}>
               Edit
             </FlatButton>
-            <FlatButton onClick={(e) => {
-              e.preventDefault();
+            <FlatButton onClick={() => {
+              console.log(handleDelete);
+              handleDelete;
             }}>
               Delete
             </FlatButton>

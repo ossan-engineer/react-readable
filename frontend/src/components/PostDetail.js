@@ -22,6 +22,7 @@ import KeyboardArrowDown from 'material-ui/svg-icons/hardware/keyboard-arrow-dow
 import moment from 'moment';
 import Comment from './Comment';
 import api, { apiClient } from '../utils/api';
+import { removeCommentAsync } from '../modules/postDetail';
 
 class PostDetail extends Component {
   constructor(props) {
@@ -308,7 +309,10 @@ class PostDetail extends Component {
             <ul>
               {orderby(this.state.comments, 'voteScore', 'desc').map(comment => (
                 <li key={comment.id}>
-                  <Comment {...comment} />
+                  <Comment
+                    {...comment}
+                    handleDelete={removeCommentAsync}
+                  />
                   <Divider style={{
                     marginTop: 30,
                     marginBottom: 30,
