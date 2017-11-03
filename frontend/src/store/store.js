@@ -6,7 +6,7 @@ import { reducer as formReducer } from 'redux-form';
 import categoryTabsReducer from '../modules/categoryTabs';
 import createPostReducer from '../modules/createPost';
 import postSummaryReducer from '../modules/postSummary';
-import postDetailReducer from '../modules/postDetail';
+import postDetailReducer from '../routes/Posts/modules/postDetail';
 import commentReducer from '../modules/comment';
 
 const reducer = combineReducers({

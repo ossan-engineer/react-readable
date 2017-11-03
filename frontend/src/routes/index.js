@@ -8,7 +8,7 @@ import {
 import AppBar from 'material-ui/AppBar';
 import HomeContainer from './Home/containers/HomeContainer';
 import Category from './Category/components/Category';
-import PostDetailContainer from '../containers/PostDetailContainer';
+import PostDetailContainer from './Posts/containers/PostDetailContainer';
 
 const Routes = () => (
   <BrowserRouter>

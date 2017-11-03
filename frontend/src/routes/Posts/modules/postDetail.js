@@ -1,4 +1,4 @@
-import api, { apiClient } from '../utils/api';
+import api, { apiClient } from '../../../utils/api';
 
 // Constants
 export const VOTE_REQUEST = 'VOTE_REQUEST';

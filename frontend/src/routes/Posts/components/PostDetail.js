@@ -20,8 +20,8 @@ import Divider from 'material-ui/Divider';
 import KeyboardArrowUp from 'material-ui/svg-icons/hardware/keyboard-arrow-up';
 import KeyboardArrowDown from 'material-ui/svg-icons/hardware/keyboard-arrow-down';
 import moment from 'moment';
-import CommentContainer from '../containers/CommentContainer';
-import api, { apiClient } from '../utils/api';
+import CommentContainer from '../../../containers/CommentContainer';
+import api, { apiClient } from '../../../utils/api';
 import { removeCommentAsync } from '../modules/postDetail';
 
 class PostDetail extends Component {
