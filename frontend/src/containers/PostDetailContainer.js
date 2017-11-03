@@ -1,10 +1,11 @@
 import { connect } from 'react-redux';
-import { voteAsync, commentsAsync, loadExistingData } from '../modules/postDetail';
+import { voteAsync, commentsAsync, editPostAsync, loadExistingData } from '../modules/postDetail';
 import PostDetail from '../components/PostDetail';
 
 const mapDispatchToProps = {
   voteAsync,
   commentsAsync,
+  editPostAsync,
   loadExistingData,
 };
 

@@ -9,6 +9,10 @@ export const COMMENTS_REQUEST = 'COMMENTS_REQUEST';
 export const COMMENTS_SUCCESS = 'COMMENTS_SUCCESS';
 export const COMMENTS_FAILURE = 'COMMENTS_FAILURE';
 
+export const EDIT_POST_REQUEST = 'EDIT_POST_REQUEST';
+export const EDIT_POST_SUCCESS = 'EDIT_POST_SUCCESS';
+export const EDIT_POST_FAILURE = 'EDIT_POST_FAILURE';
+
 export const LOAD_EXISTING_DATA = 'LOAD_EXISTING_DATA';
 
 // Actions
@@ -57,6 +61,37 @@ export const commentsAsync = postId => (dispatch) => {
     });
 };
 
+export const editPostRequest = () => ({
+  type    : EDIT_POST_REQUEST,
+});
+
+export const editPostSuccess = data => ({
+  type: EDIT_POST_SUCCESS,
+  payload: data,
+});
+
+export const editPostFailure = error => ({
+  type: EDIT_POST_FAILURE,
+  payload: {
+    ...error,
+  },
+});
+
+export const editPostAsync = (postId, title, body) => (dispatch) => {
+  const newValues = Object.assign({}, {
+    title,
+    body,
+  });
+  dispatch({ type: EDIT_POST_REQUEST });
+
+  return api.put(`posts/${postId}`, newValues)
+    .then(() => dispatch({ type: EDIT_POST_SUCCESS }))
+    .catch((err) => {
+      dispatch({ type: EDIT_POST_FAILURE });
+      throw err;
+    });
+};
+
 export const loadExistingData = data => ({
   type: LOAD_EXISTING_DATA,
   payload: data,
@@ -89,12 +124,25 @@ const ACTION_HANDLERS = {
     fetching: false,
     error: action.payload,
   }),
+  [EDIT_POST_REQUEST]: state => Object.assign({}, state, {
+    fetching: true,
+    error: null,
+  }),
+  [EDIT_POST_SUCCESS]: (state, action) => Object.assign({}, state, {
+    fetching: false,
+    error: null,
+    comments: action.payload,
+  }),
+  [EDIT_POST_FAILURE]: (state, action) => Object.assign({}, state, {
+    fetching: false,
+    error: action.payload,
+  }),
   [LOAD_EXISTING_DATA]: (state, action) => {
     console.log(action.payload);
     return Object.assign({}, state, {
-        ...action.payload,
+      ...action.payload,
     });
-  }
+  },
 };
 
 // Reducer

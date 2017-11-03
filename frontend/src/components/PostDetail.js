@@ -106,6 +106,7 @@ class PostDetail extends Component {
     const {
       voteAsync,
       commentAsync,
+      editPostAsync,
       handleSubmit,
       pristine,
       submitting,
@@ -144,7 +145,7 @@ class PostDetail extends Component {
 
             <form
               onSubmit={handleSubmit(values => {
-                console.log(values);
+                editPostAsync(post.id, values.title, values.body).then(() => this.updatePost(post.category));
               })}
             >
               <CardTitle

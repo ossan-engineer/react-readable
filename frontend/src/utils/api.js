@@ -15,9 +15,14 @@ const post = (url, data) => apiClient.post(url, data)
   .then(res => console.log(res))
   .catch(err => console.log(err));
 
+const put = (url, data) => apiClient.put(url, data)
+  .then(res => console.log(res))
+  .catch(err => console.log(err));
+
 const api = {
   get,
   post,
+  put,
 };
 
 
