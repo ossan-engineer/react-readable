@@ -158,15 +158,7 @@ class PostDetail extends Component {
                     fullWidth
                   />
                 }
-                subtitle={
-                  <Field
-                    name='author'
-                    label='Author'
-                    type='text'
-                    component={this.renderTextField}
-                    fullWidth
-                  />
-                }
+                subtitle={post.author}
               />
               <CardText>
                 <Field
@@ -178,35 +170,32 @@ class PostDetail extends Component {
                   rows={3}
                   fullWidth
                 />
-                <Field
-                  name='category'
-                  label='Category'
-                  type='text'
-                  component={this.renderSelectField}
-                  fullWidth
-                />
-                <Field
-                  name='timestamp'
-                  label='Timestamp'
-                  type='text'
-                  component={this.renderTextField}
-                  fullWidth
-                />
-                  <FlatButton type='submit'>
-                    Save
-                  </FlatButton>
-                  <FlatButton onClick={() => {
-                    const newPost = Object.assign({}, this.state.post, {
-                      editing: false,
-                    });
+                <div style={{display: 'flex', margin: '30px 0'}}>
+                  <Chip>
+                    {post.category}
+                  </Chip>
+                  <Chip backgroundColor='rgba(255, 255, 255, 1)'>
+                    {moment(post.timestamp).format('YYYY/MM/DD HH:mm:ss')}
+                  </Chip>
+                  <Chip backgroundColor='rgba(255, 255, 255, 1)'>
+                    {this.state.comments.length} Comments
+                  </Chip>
+                </div>
+                <FlatButton type='submit'>
+                  Save
+                </FlatButton>
+                <FlatButton onClick={() => {
+                  const newPost = Object.assign({}, this.state.post, {
+                    editing: false,
+                  });
 
-                    this.setState({
-                      post: newPost,
-                    });
-                  }}
-                  >
-                    Cancel
-                  </FlatButton>
+                  this.setState({
+                    post: newPost,
+                  });
+                }}
+                >
+                  Cancel
+                </FlatButton>
               </CardText>
             </form>
           </Card>
