@@ -302,6 +302,7 @@ class PostDetail extends Component {
                 <li key={comment.id}>
                   <CommentContainer
                     {...comment}
+                    updateComments={this.updateComments}
                   />
                   <Divider style={{
                     marginTop: 30,

@@ -58,6 +58,7 @@ class Comment extends Component {
       match,
       handleSubmit,
       loadExistingData,
+      updateComments,
     } = this.props;
 
     return (
@@ -65,7 +66,11 @@ class Comment extends Component {
         {this.state.editing ? (
           <div>
             <form onSubmit={handleSubmit(values => {
-              editCommentAsync(values.id, values.body, values.timestamp);
+              editCommentAsync(values.id, values.body, values.timestamp)
+                .then(() => updateComments())
+                .then(() => this.setState({
+                  editing: false,
+                }));
             })}
             >
               <Field
