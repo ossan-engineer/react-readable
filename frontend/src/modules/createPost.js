@@ -1,4 +1,4 @@
-import uuidv4 from 'uuid/v4'
+import uuidv4 from 'uuid/v4';
 import api from '../utils/api';
 
 // Constants
@@ -17,7 +17,7 @@ export const createPostAsync = values => (dispatch) => {
   return api.post('posts', newValues)
     .then(() => dispatch({ type: CREATE_POST_SUCCESS }))
     .catch((err) => {
-      dispatch({ type: CREATE_POST_FAILURE })
+      dispatch({ type: CREATE_POST_FAILURE });
       throw err;
     });
 };

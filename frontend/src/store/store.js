@@ -8,6 +8,7 @@ import createPostReducer from '../modules/createPost';
 import postSummaryReducer from '../modules/postSummary';
 import postDetailReducer from '../routes/Posts/modules/postDetail';
 import commentReducer from '../modules/comment';
+import createCommentReducer from '../modules/createComment';
 
 const reducer = combineReducers({
   form: formReducer,
@@ -15,6 +16,7 @@ const reducer = combineReducers({
   postSummary: postSummaryReducer,
   postDetail: postDetailReducer,
   comment: commentReducer,
+  createComment: createCommentReducer,
   categoryTabs: categoryTabsReducer,
 });
 

@@ -5,9 +5,9 @@ export const VOTE_REQUEST = 'VOTE_REQUEST';
 export const VOTE_SUCCESS = 'VOTE_SUCCESS';
 export const VOTE_FAILURE = 'VOTE_FAILURE';
 
-export const EDIT_POST_REQUEST = 'EDIT_POST_REQUEST';
-export const EDIT_POST_SUCCESS = 'EDIT_POST_SUCCESS';
-export const EDIT_POST_FAILURE = 'EDIT_POST_FAILURE';
+export const EDIT_COMMENT_REQUEST = 'EDIT_COMMENT_REQUEST';
+export const EDIT_COMMENT_SUCCESS = 'EDIT_COMMENT_SUCCESS';
+export const EDIT_COMMENT_FAILURE = 'EDIT_COMMENT_FAILURE';
 
 export const REMOVE_COMMENT_REQUEST = 'REMOVE_COMMENT_REQUEST';
 export const REMOVE_COMMENT_SUCCESS = 'REMOVE_COMMENT_SUCCESS';
@@ -30,33 +30,33 @@ export const voteAsync = (postId, voteType) => (dispatch) => {
     });
 };
 
-export const editPostRequest = () => ({
-  type    : EDIT_POST_REQUEST,
+export const editCommentRequest = () => ({
+  type    : EDIT_COMMENT_REQUEST,
 });
 
-export const editPostSuccess = data => ({
-  type: EDIT_POST_SUCCESS,
+export const editCommentSuccess = data => ({
+  type: EDIT_COMMENT_SUCCESS,
   payload: data,
 });
 
-export const editPostFailure = error => ({
-  type: EDIT_POST_FAILURE,
+export const editCommentFailure = error => ({
+  type: EDIT_COMMENT_FAILURE,
   payload: {
     ...error,
   },
 });
 
-export const editPostAsync = (postId, title, body) => (dispatch) => {
+export const editCommentAsync = (commentId, body, timestamp) => (dispatch) => {
   const newValues = Object.assign({}, {
-    title,
     body,
+    timestamp,
   });
-  dispatch({ type: EDIT_POST_REQUEST });
+  dispatch({ type: EDIT_COMMENT_REQUEST });
 
-  return api.put(`posts/${postId}`, newValues)
-    .then(() => dispatch({ type: EDIT_POST_SUCCESS }))
+  return api.put(`comments/${commentId}`, newValues)
+    .then(() => dispatch({ type: EDIT_COMMENT_SUCCESS }))
     .catch((err) => {
-      dispatch({ type: EDIT_POST_FAILURE });
+      dispatch({ type: EDIT_COMMENT_FAILURE });
       throw err;
     });
 };
@@ -111,12 +111,12 @@ const ACTION_HANDLERS = {
     fetching: true,
     error: null,
   }),
-  [EDIT_POST_SUCCESS]: (state, action) => Object.assign({}, state, {
+  [EDIT_COMMENT_SUCCESS]: (state, action) => Object.assign({}, state, {
     fetching: false,
     error: null,
-    comments: action.payload,
+    // comments: action.payload,
   }),
-  [EDIT_POST_FAILURE]: (state, action) => Object.assign({}, state, {
+  [EDIT_COMMENT_FAILURE]: (state, action) => Object.assign({}, state, {
     fetching: false,
     error: action.payload,
   }),

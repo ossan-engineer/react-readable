@@ -21,6 +21,7 @@ import KeyboardArrowUp from 'material-ui/svg-icons/hardware/keyboard-arrow-up';
 import KeyboardArrowDown from 'material-ui/svg-icons/hardware/keyboard-arrow-down';
 import moment from 'moment';
 import CommentContainer from '../../../containers/CommentContainer';
+import CreateCommentContainer from '../../../containers/CreateCommentContainer';
 import api, { apiClient } from '../../../utils/api';
 import { removeCommentAsync } from '../modules/postDetail';
 
@@ -74,6 +75,15 @@ class PostDetail extends Component {
       console.log(res.data);
       this.setState({
         post: res.data,
+      });
+    });
+  };
+
+  updateComments = () => {
+    api.get(`posts/${this.props.match.params.id}/comments`).then((res) => {
+      console.log(res.data);
+      this.setState({
+        comments: res.data,
       });
     });
   };
@@ -277,35 +287,7 @@ class PostDetail extends Component {
 
         <Card>
           <CardText>
-            <div>
-              <form
-                onSubmit={handleSubmit((values) => {
-                  console.log(values);
-                  this.handleSubmitComment(values);
-                })}
-              >
-                <Field
-                  name='author'
-                  label='Author'
-                  fullWidth
-                  component={this.renderTextField}
-                /><br />
-                <Field
-                  name='body'
-                  label='Comment'
-                  fullWidth
-                  multiLine
-                  rows={3}
-                  component={this.renderTextField}
-                /><br />
-                <FlatButton
-                  label='Submit'
-                  type='submit'
-                  primary
-                  disabled={pristine || submitting || !valid}
-                />
-              </form>
-            </div>
+            <CreateCommentContainer match={this.props.match} updateComments={this.updateComments} />
 
             <Divider style={{
               marginTop: 30,

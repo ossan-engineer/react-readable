@@ -1,7 +1,7 @@
 import { connect } from 'react-redux';
 import {
   voteAsync,
-  editPostAsync,
+  editCommentAsync,
   removeCommentAsync,
   loadExistingData,
 } from '../modules/comment';
@@ -9,7 +9,7 @@ import Comment from '../components/Comment';
 
 const mapDispatchToProps = {
   voteAsync,
-  editPostAsync,
+  editCommentAsync,
   removeCommentAsync,
   loadExistingData,
 };
