@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import { withRouter } from 'react-router-dom';
 import { Field, reduxForm } from 'redux-form';
 import TextField from 'material-ui/TextField';
@@ -8,7 +9,6 @@ import KeyboardArrowUp from 'material-ui/svg-icons/hardware/keyboard-arrow-up';
 import KeyboardArrowDown from 'material-ui/svg-icons/hardware/keyboard-arrow-down';
 import moment from 'moment';
 import './Comment.css';
-import { loadExistingData } from '../modules/comment';
 
 class Comment extends Component {
   constructor(props) {
@@ -158,6 +158,25 @@ class Comment extends Component {
     );
   }
 }
+
+Comment.propTypes = {
+  id: PropTypes.string.isRequired,
+  parentId: PropTypes.string.isRequired,
+  timestamp: PropTypes.string.isRequired,
+  author: PropTypes.string.isRequired,
+  body: PropTypes.string.isRequired,
+  voteScore: PropTypes.number.isRequired,
+  deleted: PropTypes.string.isRequired,
+  parentDeleted: PropTypes.string.isRequired,
+  editCommentAsync: PropTypes.func.isRequired,
+  removeCommentAsync: PropTypes.func.isRequired,
+  handleDelete: PropTypes.func.isRequired,
+  history: PropTypes.object.isRequired,
+  match: PropTypes.object.isRequired,
+  handleSubmit: PropTypes.func.isRequired,
+  loadExistingData: PropTypes.func.isRequired,
+  updateComments: PropTypes.func.isRequired,
+};
 
 export default reduxForm({
   form: 'comment',

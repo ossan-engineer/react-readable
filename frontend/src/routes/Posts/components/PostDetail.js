@@ -46,6 +46,10 @@ class PostDetail extends Component {
       this.setState({
         post: res.data,
       });
+
+      if (Object.keys(res.data).length === 0) {
+        this.props.history.push('/error');
+      }
     });
 
     api.get(`posts/${this.props.match.params.id}/comments`).then((res) => {

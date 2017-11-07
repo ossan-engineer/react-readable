@@ -9,6 +9,7 @@ import AppBar from 'material-ui/AppBar';
 import HomeContainer from './Home/containers/HomeContainer';
 import Category from './Category/components/Category';
 import PostDetailContainer from './Posts/containers/PostDetailContainer';
+import NotFound from './NotFound/components/NotFound';
 
 const Routes = () => (
   <BrowserRouter>
@@ -27,6 +28,7 @@ const Routes = () => (
           <Route path='/posts/:id' component={PostDetailContainer} />
           <Route path='/posts/:id/edit' component={PostDetailContainer} />
           <Route path='/category/:category' component={Category} />
+          <Route path='/error' component={NotFound}></Route>
         </Switch>
       </div>
     </div>

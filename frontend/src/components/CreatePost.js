@@ -28,10 +28,6 @@ export const validate = (values) => {
 };
 
 class CreatePost extends Component {
-  componentDidMount() {
-    console.log('MOUNT');
-  }
-
   renderTextField = ({
     input,
     label,
