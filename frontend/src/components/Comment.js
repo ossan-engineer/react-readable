@@ -8,7 +8,7 @@ import KeyboardArrowUp from 'material-ui/svg-icons/hardware/keyboard-arrow-up';
 import KeyboardArrowDown from 'material-ui/svg-icons/hardware/keyboard-arrow-down';
 import moment from 'moment';
 import './Comment.css';
-import {loadExistingData} from '../modules/comment';
+import { loadExistingData } from '../modules/comment';
 
 class Comment extends Component {
   constructor(props) {
@@ -65,7 +65,7 @@ class Comment extends Component {
       <div>
         {this.state.editing ? (
           <div>
-            <form onSubmit={handleSubmit(values => {
+            <form onSubmit={handleSubmit((values) => {
               editCommentAsync(values.id, values.body, values.timestamp)
                 .then(() => updateComments())
                 .then(() => this.setState({
@@ -107,7 +107,8 @@ class Comment extends Component {
                 this.setState({
                   editing: false,
                 });
-              }}>Cancel</FlatButton>
+              }}
+              >Cancel</FlatButton>
             </form>
           </div>
         ) : (
@@ -139,20 +140,22 @@ class Comment extends Component {
               });
               console.log(this.state);
               loadExistingData(this.state);
-            }}>
+            }}
+            >
               Edit
             </FlatButton>
             <FlatButton onClick={() => {
               if (window.confirm('Are you sure?')) {
                 removeCommentAsync(id).then(() => history.push(match.url));
               }
-            }}>
+            }}
+            >
               Delete
             </FlatButton>
           </div>
         )}
       </div>
-    )
+    );
   }
 }
 

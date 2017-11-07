@@ -14,7 +14,7 @@ export const categoriesSuccess = categories => ({
   type: CATEGORIES_SUCCESS,
   payload: {
     categories,
-  }
+  },
 });
 
 export const categoriesFailure = error => ({

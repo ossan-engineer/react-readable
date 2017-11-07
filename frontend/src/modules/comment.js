@@ -77,7 +77,7 @@ export const removeCommentFailure = error => ({
   },
 });
 
-export const removeCommentAsync = (commentId) => (dispatch) => {
+export const removeCommentAsync = commentId => (dispatch) => {
   dispatch({ type: REMOVE_COMMENT_REQUEST });
 
   return apiClient.delete(`comments/${commentId}`)

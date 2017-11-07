@@ -47,7 +47,7 @@ export const commentsAsync = postId => (dispatch) => {
     .then((res) => {
       console.log(res);
       dispatch(commentsSuccess(res.data));
-      return res.data
+      return res.data;
     })
     .catch((err) => {
       dispatch(commentsFailure(err));

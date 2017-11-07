@@ -72,13 +72,14 @@ class CreatePost extends Component {
     return (
       <Card style={{ marginBottom: 15 }}>
         <CardText>
-          <form onSubmit={handleSubmit(values => {
+          <form onSubmit={handleSubmit((values) => {
             console.log(values);
             createPostAsync(values).then(() => {
               reset();
               window.location.href = '/';
             });
-          })}>
+          })}
+          >
             <Field
               name='title'
               label='Title'

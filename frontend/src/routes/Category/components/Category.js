@@ -34,7 +34,7 @@ class Category extends Component {
   }
 
   componentWillReceiveProps() {
-    console.log('UPDATE')
+    console.log('UPDATE');
     api.get('categories').then((res) => {
       console.log(res.data);
       this.setState({
@@ -127,7 +127,7 @@ class Category extends Component {
           ))}
         </ul>
       </div>
-    )
+    );
   }
 }
 

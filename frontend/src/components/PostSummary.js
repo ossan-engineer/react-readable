@@ -16,7 +16,7 @@ import KeyboardArrowUp from 'material-ui/svg-icons/hardware/keyboard-arrow-up';
 import KeyboardArrowDown from 'material-ui/svg-icons/hardware/keyboard-arrow-down';
 import moment from 'moment';
 import api from '../utils/api';
-import {commentsAsync} from '../modules/postSummary';
+import { commentsAsync } from '../modules/postSummary';
 
 class PostSummary extends Component {
   constructor(props) {
@@ -29,7 +29,7 @@ class PostSummary extends Component {
 
   componentDidMount() {
     this.props.commentsAsync(this.props.post.id)
-      .then((res) => this.setState({
+      .then(res => this.setState({
         comments: res,
       }));
   }
@@ -68,7 +68,7 @@ class PostSummary extends Component {
         </Link>
         <CardText>
           {post.body}
-          <div style={{display: 'flex', marginTop: 30}}>
+          <div style={{ display: 'flex', marginTop: 30 }}>
             <Chip>
               {post.category}
             </Chip>

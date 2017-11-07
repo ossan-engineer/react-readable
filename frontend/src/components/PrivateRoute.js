@@ -6,22 +6,20 @@ import { fakeAuth } from '../routes/Login/components/Login';
 const PrivateRoute = ({ component: Component, ...rest }) => (
   <Route
     {...rest}
-    render={(props) => {
-      return fakeAuth.isAuthenticated
-        ? (
-          <Component {...props} />
-        )
-        : (
-          <Redirect
-            to={{
-              pathname: '/login',
-              state: {
-                from: props.location,
-              },
-            }}
-          />
-        );
-    }}
+    render={props => (fakeAuth.isAuthenticated
+      ? (
+        <Component {...props} />
+      )
+      : (
+        <Redirect
+          to={{
+            pathname: '/login',
+            state: {
+              from: props.location,
+            },
+          }}
+        />
+      ))}
   />
 );
 

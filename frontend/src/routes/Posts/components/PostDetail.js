@@ -164,7 +164,7 @@ class PostDetail extends Component {
             <Divider />
 
             <form
-              onSubmit={handleSubmit(values => {
+              onSubmit={handleSubmit((values) => {
                 editPostAsync(post.id, values.title, values.body).then(() => this.updatePost(post.category));
               })}
             >
@@ -190,7 +190,7 @@ class PostDetail extends Component {
                   rows={3}
                   fullWidth
                 />
-                <div style={{display: 'flex', margin: '30px 0'}}>
+                <div style={{ display: 'flex', margin: '30px 0' }}>
                   <Chip>
                     {post.category}
                   </Chip>
@@ -251,7 +251,7 @@ class PostDetail extends Component {
 
             <CardText>
               <div>{post.body}</div>
-              <div style={{display: 'flex', margin: '30px 0'}}>
+              <div style={{ display: 'flex', margin: '30px 0' }}>
                 <Chip>
                   {post.category}
                 </Chip>
@@ -273,13 +273,15 @@ class PostDetail extends Component {
                 });
 
                 loadExistingData(this.state.post);
-              }}>Edit
+              }}
+              >Edit
               </FlatButton>
               <FlatButton onClick={() => {
                 window.confirm('Are you sure?') && apiClient.delete(`posts/${post.id}`).then(() => {
                   this.props.history.push('/');
                 });
-              }}>Delete
+              }}
+              >Delete
               </FlatButton>
             </CardText>
           </Card>
@@ -317,7 +319,7 @@ class PostDetail extends Component {
           </CardText>
         </Card>
       </div>
-    )
+    );
   }
 }
 
