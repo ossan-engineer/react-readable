@@ -56,9 +56,7 @@ class Home extends Component {
   };
 
   handleActive = (tab) => {
-    // alert(`A tab with this route property ${tab.props['data-route']} was activated.`);
     this.props.history.push(`/category/${tab.props.value}`);
-    // this.updatePosts(tab.props.value);
   };
 
   handleCancel = () => {
@@ -128,13 +126,3 @@ Home.propTypes = {
 };
 
 export default withRouter(Home);
-
-// export default reduxForm({
-//   form: 'create',
-//   // validate,
-// })(withRouter(Home));
-
-// export default reduxForm({
-//   form: 'Order',
-//   validate,
-// })(withStyles(styleSheet)(Order));
