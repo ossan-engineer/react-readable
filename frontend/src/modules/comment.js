@@ -16,13 +16,13 @@ export const REMOVE_COMMENT_FAILURE = 'REMOVE_COMMENT_FAILURE';
 export const LOAD_EXISTING_DATA = 'LOAD_EXISTING_DATA';
 
 // Actions
-export const voteAsync = (postId, voteType) => (dispatch) => {
+export const voteAsync = (commentId, voteType) => (dispatch) => {
   const newValues = Object.assign({}, {
     option: voteType,
   });
   dispatch({ type: VOTE_REQUEST });
 
-  return api.post(`posts/${postId}`, newValues)
+  return api.post(`comments/${commentId}`, newValues)
     .then(() => dispatch({ type: VOTE_SUCCESS }))
     .catch((err) => {
       dispatch({ type: VOTE_FAILURE });

@@ -43,6 +43,7 @@ class Comment extends Component {
 
   render() {
     const {
+      voteAsync,
       id,
       parentId,
       timestamp,
@@ -124,13 +125,19 @@ class Comment extends Component {
               parentDeleted: {parentDeleted.toString()}
             </div>
             <div style={{ display: 'flex', justifyContent: 'left', alignItems: 'center' }}>
-              <IconButton tooltip='up'>
+              <IconButton
+                tooltip='up'
+                onClick={() => voteAsync(id, 'upVote').then(() => updateComments())}
+              >
                 <KeyboardArrowUp />
               </IconButton>
               <div>
                 <span style={{ margin: '0 5px' }}>{voteScore}</span>
               </div>
-              <IconButton tooltip='down'>
+              <IconButton
+                tooltip='down'
+                onClick={() => voteAsync(id, 'downVote').then(() => updateComments())}
+              >
                 <KeyboardArrowDown />
               </IconButton>
             </div>
